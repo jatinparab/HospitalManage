@@ -7,7 +7,7 @@
             <!-- begin brand -->
             <div class="login-header">
                 <div class="brand">
-                    <span class="logo"><i class="ion-ios-cloud"></i></span> Paathshala Management
+                    <span class="logo"><i class="ion-ios-cloud"></i></span> Hospital Management
                     <small>Please sign in to continue.</small>
                 </div>
                 <div class="icon">
