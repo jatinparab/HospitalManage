@@ -2,12 +2,12 @@
 <?php
 	//$this -> load -> session();
 	//session_start();
-print_r($this->session->userdata['logged_in']);
+//print_r($this->session->userdata['logged_in']);
 if (isset($this->session->userdata['logged_in'])) {
 	$name = ($this->session->userdata['logged_in']['name']);
 	$username = ($this->session->userdata['logged_in']['username']);
 	} else {
-	//header("location: login");
+	header("location: login");
 	}
 ?>
 ?>	
@@ -137,7 +137,7 @@ if (isset($this->session->userdata['logged_in'])) {
 							<span class="user-image online">
 								<img src="assets/img/user-13.jpg" alt="" /> 
 							</span>
-							<span class="hidden-xs">Adam Schwartz</span> <b class="caret"></b>
+							<span class="hidden-xs"><?=$name?></span> <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu animated fadeInLeft">
 							<li class="arrow"></li>
@@ -169,10 +169,17 @@ if (isset($this->session->userdata['logged_in'])) {
 							<small><?=$username?></small>
 						</div>
 					</li>
-                    <li>
+                    
+					<li>
 						<a href="javascript:;">
 						    <i class="ion-ios-pulse-strong"></i> 
-						    <span>Project List</span>
+						    <span>OPD</span>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;">
+						    <i class="ion-ios-pulse-strong"></i> 
+						    <span>IPD</span>
 						</a>
 					</li>
                     <li class="has-sub">
