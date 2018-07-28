@@ -1,5 +1,10 @@
 
-	
+<?php
+if (isset($this->session->userdata['logged_in'])) {
+$loc = base_urL()."user_main";
+header("location: ".$loc);
+}
+?>
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade">
 	    <!-- begin login -->
@@ -16,13 +21,22 @@
             </div>
             <!-- end brand -->
             <div class="login-content">
-                <form action="index.html" method="POST" class="margin-bottom-0">
+                <form action="<?php echo base_url() ?>Auth/validate" method="POST" class="margin-bottom-0">
                     <div class="form-group m-b-20">
-                        <input type="text" class="form-control input-lg inverse-mode no-border" placeholder="Email Address" required />
+                        <input type="text" name="username" class="form-control input-lg inverse-mode no-border" placeholder="Email Address" required />
                     </div>
                     <div class="form-group m-b-20">
-                        <input type="password" class="form-control input-lg inverse-mode no-border" placeholder="Password" required />
+                        <input type="password" name="password" class="form-control input-lg inverse-mode no-border" placeholder="Password" required />
                     </div>
+                    <?php if(isset($error)){ ?>
+
+                    
+                    <div class="alert alert-danger fade in m-b-15">
+								<strong>Error!</strong>
+								<?=$error?>
+								<span class="close" data-dismiss="alert">&times;</span>
+                            </div>
+                            <?php } ?>
                     <div class="checkbox m-b-20">
                         <label>
                             <input type="checkbox" /> Remember Me
