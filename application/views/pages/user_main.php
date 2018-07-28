@@ -30,7 +30,7 @@
 							<li><a href="view_user_profile.php">View Profile</a></li>
 							<li><a href="add_step.php">Setting</a></li>
 							<li class="divider"></li>
-							<li><a href="logout.php">Log Out</a></li>
+							<li><a href="<?php echo base_url(); ?>logout">Log Out</a></li>
 						</ul>
 					</li>
 				</ul>
