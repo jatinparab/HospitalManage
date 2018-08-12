@@ -9,7 +9,6 @@ if (isset($this->session->userdata['logged_in'])) {
 	} else {
 	header("location: login");
 	}
-?>
 ?>	
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
@@ -101,7 +100,7 @@ if (isset($this->session->userdata['logged_in'])) {
                             </div>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="<?phpecho base_url('Pages/OPD') ?>">
                                 <i class="ion-ios-people m-r-5 f-s-20 pull-left"></i> OPD
                             </a>
 						</li>
@@ -171,7 +170,7 @@ if (isset($this->session->userdata['logged_in'])) {
 					</li>
                     
 					<li>
-						<a href="javascript:;">
+						<a href="<?php echo base_url('Pages/OPD') ?>">
 						    <i class="ion-ios-pulse-strong"></i> 
 						    <span>OPD</span>
 						</a>
@@ -221,13 +220,12 @@ if (isset($this->session->userdata['logged_in'])) {
 		</div>
 		<div class="sidebar-bg"></div>
 		<!-- end #sidebar -->
-		
-
         <!-- end theme-panel -->
 		
 		<!-- begin scroll to top btn -->
 		<a href="javascript:;" class="btn btn-icon btn-circle btn-primary btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 		<!-- end scroll to top btn -->
+		
 	</div>
 	<!-- end page container -->
 	

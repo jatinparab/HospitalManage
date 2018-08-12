@@ -16,6 +16,17 @@ class Pages extends CI_Controller {
             $this->load->view('pages/'.$page, $data);
             $this->load->view('templates/footer', $data);
         }
+
+        public function OPD(){
+                $this->load->model('opd');
+                $this->data['opd_records'] = $this->opd->fetch_records();
+                $this->load->view('templates/header');
+                $this->load->view('pages/opd',$this->data);
+                $this->load->view('templates/footer');
+        }
+        public function bill(){
+                $this->load->view('pages/bill');
+        }
 }
 
 

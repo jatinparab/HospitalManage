@@ -158,14 +158,12 @@ var handleJqueryTagIt = function() {
     $('#jquery-tagIt-default').tagit({
         availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"]
     });
-    
     $('#jquery-tagIt-inverse').tagit({
         availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"]
     });
     $('#jquery-tagIt-white').tagit({
-
+        availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"]
     });
-   
     $('#jquery-tagIt-primary').tagit({
         availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"]
     });

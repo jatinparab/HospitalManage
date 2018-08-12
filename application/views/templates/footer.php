@@ -13,6 +13,10 @@
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+	<script src="<?php echo base_url() ?>assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
+	<script src="<?php echo base_url() ?>assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
+	<script src="<?php echo base_url() ?>assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+	<script src="<?php echo base_url() ?>assets/js/table-manage-default.demo.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/apps.min.js"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
 	
