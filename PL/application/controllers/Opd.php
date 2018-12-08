@@ -1,0 +1,67 @@
+<?php
+
+class Opd extends CI_Controller {
+
+    public function __construct() {
+        parent::__construct();
+        
+        // Load form helper library
+     //   $this->load->helper('form');
+        
+        // Load form validation library
+      //  $this->load->library('form_validation');
+        
+        // Load session library
+        
+        
+        // Load database
+        $this->load->model('opd_management');
+    }
+
+        public function formSubmit()
+        {
+            $data = $this->input->post();
+            if($this->opd_management->opdsubmit($data) == TRUE){
+                redirect('/opd_details');
+            }else{
+                die($this->opd_management->opdsubmit($data));
+            }
+        }
+        public function edit($id){
+            $data['patient_data'] = $this->opd_management->get_opd_details_from_id($id);
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/opd_add_form', $data);
+            $this->load->view('templates/footer', $data);
+        }
+        public function opdAdd(){
+            $data = $this->input->post();
+            //print_r($data);
+            $charges = array();
+            foreach($data as $k => $v){
+                if($v == 'on'){
+                    array_push($charges,$k);
+                }
+            }
+            foreach($charges as $charge){
+                $data2['receipt_number'] = $data['receipt_number'];
+                $data2['name'] = $charge;
+                $data2['amount'] = $data[$charge.'_amount'];
+                $data2['number'] = $data[$charge.'_number'];
+                $data2['total'] = $data[$charge.'_total'];
+                if(!$this->opd_management->insertcharge($data2)){
+                    die($this->opd_management->insertcharge($data2));
+                }
+            }
+            redirect('/opd_details');
+
+        }
+        public function billing($id){
+            $data['patient_data'] = $this->opd_management->get_opd_details_from_id($id);
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/bill', $data);
+            $this->load->view('templates/footer', $data);
+        }
+}
+
+
+?>
