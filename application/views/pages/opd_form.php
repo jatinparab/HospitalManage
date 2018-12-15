@@ -1,0 +1,139 @@
+
+<?php
+	//$this -> load -> session();
+	//session_start();
+//print_r($this->session->userdata['logged_in']);
+if (isset($this->session->userdata['logged_in'])) {
+	$name = ($this->session->userdata['logged_in']['name']);
+	$username = ($this->session->userdata['logged_in']['username']);
+	} else {
+	header("location: login");
+    }
+    $latest_entry = $this->opd_management->getlatestopd();
+?>
+
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+		<!-- begin #header -->
+		
+		<!-- end #header -->
+        
+		<?php  $this->load->view('templates/head') ?>
+		<!-- begin #sidebar -->
+		<?php  $this->load->view('templates/sidebar') ?>
+		<!-- end #sidebar -->
+        <div id="content" class="content">
+			<!-- begin breadcrumb -->
+			
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<!-- end page-header -->
+			
+			<!-- begin row -->
+			<div class="row">
+                <!-- begin col-6 -->
+			    <div class="col-md-12 col-sm-offset-0">
+			        <!-- begin panel -->
+                    <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
+                        <div class="panel-heading">
+                            
+                            <h4 class="panel-title">OPD Form</h4>
+                        </div>
+                        <div class="panel-body">
+                            <form action="<?=base_url()?>Opd/formSubmit" onsubmit="return opdsubmit()" method="post" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Sr No.</label>
+                                    <div class="col-md-1">
+                                        <input  type="text" class="form-control" value="<?=$latest_entry?>" readonly="readonly"  />
+                                    </div>
+                                    <label class="col-md-2 control-label">Receipt Number</label>
+                                    <div class="col-md-2">
+                                        <input name="receipt_number" type="text" class="form-control" value="SUKPL<?=$latest_entry?>" readonly="readonly" />
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Patient Name <span style="color:red;font-size:15px;">*</span></label>
+                                    <div class="col-md-2">
+                                        <input type="text" id="patient_name" name="patient_name" class="form-control onlytext" placeholder="Patient Name" />
+                                    </div>
+                                    <label class="col-md-1 control-label">Mobile Number <span style="color:red;font-size:15px;">*</span></label>
+                                    <div class="col-md-2">
+                                        <input type="text" id="contact_number" type="text" pattern="\d*" minlength="10" maxlength="10"  name="contact_number" class="form-control onlynumber" placeholder="Mobile Number" />
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Address</label>
+                                    <div class="col-md-5">
+                                        <textarea style="height:40px;" id="address" class="form-control" name="address" placeholder="Textarea" rows="5"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Age <span style="color:red;font-size:15px;">*</span></label>
+                                    <div class="col-md-1">
+                                        <input type="text" maxlength="3" id="age"  class="form-control onlynumber" name="age" placeholder="Default input" />
+                                    </div>
+                                    <label  class="col-md-2 control-label">Sex <span style="color:red;font-size:15px;">*</span></label>
+                                    <div class="col-md-2">
+                                        <select id="sex" name="sex" class="form-control">
+                                            <option value='-1'>Select</option>
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Diagnosis <span style="color:red;font-size:15px;">*</span></label>
+                                    <div  class="col-md-5">
+                                        <input id="diagnosis" name="diagnosis" type="text" class="form-control" placeholder="Default input" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Checked By <span style="color:red;font-size:15px;">*</span></label>
+                                    <div class="col-md-2">
+                                        <input id="checked_by" value="Dr. " name="checked_by" type="text" class="form-control onlytext" placeholder="Dr." />
+                                    </div>
+                                    <label class="col-md-1 control-label">Remarks <span style="color:red;font-size:15px;">*</span></label>
+                                    <div class="col-md-2">
+                                        <input id="remarks" name="remarks" type="text" class="form-control" placeholder="Default input" />
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Submit</label>
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-sm btn-success">Add Patient Details</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- end panel -->
+                </div>
+                <!-- end col-6 -->
+                <!-- begin col-6 -->
+              
+            </div>
+            <!-- end row -->
+           
+            <!-- end row -->
+            <!-- begin row -->
+            
+            <!-- end row -->
+		</div>
+
+        <!-- end theme-panel -->
+		
+		<!-- begin scroll to top btn -->
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-primary btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+		<!-- end scroll to top btn -->
+	</div>
+	<!-- end page container -->
+	
+
