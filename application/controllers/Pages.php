@@ -2,7 +2,7 @@
 
 class Pages extends CI_Controller {
 
-        public function view($page = 'home')
+        public function view($page = 'login')
         {//echo $page;
 //           phpinfo();
     
