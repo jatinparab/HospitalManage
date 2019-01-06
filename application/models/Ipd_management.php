@@ -51,9 +51,22 @@ Class Ipd_Management extends CI_Model{
         return $result['id']+1;
     }
     public function get_ipd_details(){
+        $this->db->order_by("id","DESC");
         return $this->db->get('ipd_entries')->result_array();
     }
     public function add_daily($ipd_number,$ward_name){
+        if($ward_name == 'General'){
+            $data['type'] = 0;
+        }else if($ward_name == 'ICU'){
+            $data['type'] = 1;
+        }else if($ward_name == 'SICU'){
+            $data['type'] = 2;
+        }else if($ward_name == 'Special'){
+            $data['type'] = 3;
+        }else{
+            $data['type'] = 4;
+        }
+
         $this->db->where('ipd_number',$ipd_number);
         $this->db->limit(1);
         $details = $this->db->get('ipd_entries')->result_array()[0];
@@ -66,6 +79,9 @@ Class Ipd_Management extends CI_Model{
             $datediff = $now - strtotime($hm);
      //   return $now;
              $number = round($datediff / (60 * 60 * 24));
+             if($number == 0 ) {
+                 $number == 1;
+             }
              $data['ipd_number']=$ipd_number;
              $data['name'] = 'bed charges - '.$ward_name;
              $data['amount'] = 200;
@@ -119,6 +135,7 @@ Class Ipd_Management extends CI_Model{
         $data['name'] = 'Amount Already Paid - '.date('d/m/Y');
         $data['amount'] = $amount;
         $data['number'] = 1;
+        $data['type'] = 6;
         $data['total'] = $amount;
         
             $this->db->where('ipd_number',$ipd_number);
@@ -143,6 +160,7 @@ Class Ipd_Management extends CI_Model{
     }
     public function get_bill_entries($ipd_number){
         $this->db->where('ipd_number',$ipd_number);
+        $this->db->order_by('type',"ASC");
         return $this->db->get('ipd_charges')->result_array();
 
     }

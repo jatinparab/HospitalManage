@@ -12,6 +12,7 @@ if (isset($this->session->userdata['logged_in'])) {
     }
     
     $ipd=$this->ipd_management->get_ipd_details();
+    //print_r($ipd);
 
 ?>
 

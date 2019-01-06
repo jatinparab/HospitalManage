@@ -57,11 +57,21 @@
 						    <span>Visiting Faculty</span>
 						</a>
 					</li>
-                    <li>
-						<a href="<?php echo base_url() ?>billing">
+                    <li class="has-sub">
+						<a >
+                        <b class="caret pull-right"></b>
 						    <i class="ion-ios-pulse-strong"></i> 
 						    <span>Billing</span>
 						</a>
+                        <ul class="sub-menu">
+							
+							<li><a href="<?=base_url()?>ipd_billing">
+                           IPD Billing
+                            </a></li>
+							<li><a href="<?=base_url()?>opd_billing">
+                        OPD Billing
+                            </a></li>
+                        </ul>
 					</li>
                    
 				</ul>

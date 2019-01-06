@@ -100,19 +100,34 @@ function partialsubmitopd(receipt_number){
 }
 
 
-function givediscount(){
+function givediscount(ipd_number){
     var type = $('#type').val();
     var amount = $('#amount').val();
     var total = $('#finalamount').html();
-    console.log(amount,(amount/100));
+   
     if(type==0){
-        $('#finalamount').html(Math.floor(total - total*(amount/100)));
-        $('#discount').hide();
+        amt = Math.floor(total*(amount/100));
+        //$('#discount').hide();
     }else{
-        $('#finalamount').html(total-amount);
-        $('#discount').hide();
+       amt = amount;
+      //  $('#discount').hide();
     }
-    console.log(total);
+    $.ajax({
+        url: "../discountipd",
+        type: "post",
+        data: {
+            'ipd_number':ipd_number,
+            'amount':amt
+        },
+        success: function (response) {
+
+            if(response == 'success'){
+                alert('discount given');
+                window.location = '';
+            }
+        }
+    });
+   // console.log(total);
 }
 
 
@@ -197,7 +212,7 @@ function ipdformsubmit(){
 }
 
 function opdsubmit(){
-    if($('#patient_name').val() == '' || $('#contact_number').val() == '' || $('#age').val() == '' || $('#sex').val() == '' ||$('#diagnosis').val() == '' || $('#checked_by').val() == '' || $('#remarks').val() == '' ){
+    if($('#patient_name').val() == '' || $('#contact_number').val() == '' || $('#age').val() == '' || $('#sex').val() == '' ||$('#diagnosis').val() == '' || $('#checked_by').val() == '' ){
         alert("Please fill all mandatory fields!");
         return false;
     }

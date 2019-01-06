@@ -1,6 +1,11 @@
 <?php
                 $entries = $this->ipd_management->get_bill_entries($patient_data['ipd_number']);
                 $visiting = $this->ipd_management->get_visiting_entries($patient_data['ipd_number']);
+                $general = 0;
+                $icu = 0;
+                $sicu = 0;
+                $special = 0;
+                $other =0;
 //print_r($visiting)
 ?>
 
@@ -59,11 +64,43 @@
         </thead>
         <tbody>
         <?php $i=1; $sum=0; foreach($entries as $entry){ 
+          if($entry['type'] == 0 && $general == 0){
+            $general = 1;
+            ?>
+            <tr><td colspan="5">General Ward Charges</td></tr>
+            <?php
+          }
+          if($entry['type'] == 1 && $icu == 0){
+            $icu = 1;
+            ?>
+            <tr><td colspan="5">ICU Ward Charges</td></tr>
+            <?php
+          }
+          if($entry['type'] == 2 && $sicu == 0){
+            $sicu = 1;
+            ?>
+            <tr><td colspan="5">ICU Ward Charges</td></tr>
+            <?php
+          }
+          if($entry['type'] == 3 && $special == 0){
+            $special = 1;
+            ?>
+            <tr><td colspan="5">ICU Ward Charges</td></tr>
+            <?php
+          }
+          if($entry['type'] == 4 && $other == 0){
+            $other = 1;
+            ?>
+            <tr><td colspan="5">Other Charges</td></tr>
+            <?php
+          }
+          
           $sum += $entry['total'];?>
+          
         <tr>
         <td><?=$i?></td>
         <td><?=$entry['name']?></td>
-        <?php if(strstr($entry['name'],'Amount Already Paid')){ ?>
+        <?php if(strstr($entry['name'],'Amount Already Paid')|| $entry['name'] == 'Deposit Charge' || $entry['name'] == 'Discount'){ ?>
         
         <td></td>
         <td></td>
@@ -113,7 +150,7 @@
       <option value="0">Percent</option>
       <option value="1">Flat Off</option>
       </select><br><br>
-      <button onclick="givediscount()" class="btn btn-default btn-sm">Give Discount</button>
+      <button onclick="givediscount('<?=$patient_data['ipd_number']?>')" class="btn btn-default btn-sm">Give Discount</button>
       </div>
 
       <div class="row text-center">

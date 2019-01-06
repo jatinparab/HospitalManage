@@ -80,6 +80,7 @@ class Ipd extends CI_Controller {
                 $data2['amount'] = $data[$charge.'_amount'];
                 $data2['number'] = $data[$charge.'_number'];
                 $data2['total'] = $data[$charge.'_total'];
+                $data2['type'] = 4;
                 if(!$this->ipd_management->insertcharge($data2)){
                     die($this->ipd_management->insertcharge($data2));
                 }
@@ -92,20 +93,36 @@ class Ipd extends CI_Controller {
             print_r($data);
             $data['name'] = 'Deposit Charge';
             $data['number'] = 1;
-            $data['total'] = $data['amount'];
+            $data['total'] = -$data['amount'];
+            $data['type'] = 5;
             if(!$this->ipd_management->insertcharge($data)){
                 die($this->ipd_management->insertcharge($data));
             }
             redirect('/ipd_details');
 
         }
+
+        public function discountipd(){
+            $data = $this->input->post();
+            $data['name'] = 'Discount';
+            $data['number'] = 1;
+            $data['total'] = -$data['amount'];
+            $data['type'] = 6;
+            if(!$this->ipd_management->insertcharge($data)){
+                die($this->ipd_management->insertcharge($data));
+            }else{
+                echo 'success';
+            }
+        }
+
+
         public function visitingSubmit(){
             $data = $this->input->post();
             $data2 = $data;
             unset($data['doctor_name']);
 
             $data['name'] = 'Visiting Doctor';
-           
+            $data['type'] = 4;
             $data['number'] = $data['days'];
             unset($data['days']);
             $data['total'] = $data['amount'];

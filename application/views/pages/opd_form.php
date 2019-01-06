@@ -96,7 +96,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                     <div class="col-md-2">
                                         <input id="checked_by" value="Dr. " name="checked_by" type="text" class="form-control onlytext" placeholder="Dr." />
                                     </div>
-                                    <label class="col-md-1 control-label">Remarks <span style="color:red;font-size:15px;">*</span></label>
+                                    <label class="col-md-1 control-label">Remarks</label>
                                     <div class="col-md-2">
                                         <input id="remarks" name="remarks" type="text" class="form-control" placeholder="Default input" />
                                     </div>
@@ -106,7 +106,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                 
                                 
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">Submit</label>
+                                    <label class="col-md-4 control-label"> </label>
                                     <div class="col-md-6">
                                         <button type="submit" class="btn btn-sm btn-success">Add Patient Details</button>
                                     </div>

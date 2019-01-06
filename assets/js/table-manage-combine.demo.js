@@ -19,11 +19,13 @@ var handleDataTableCombinationSetting = function() {
                 { extend: 'print', className: 'btn-sm' }
             ],
             responsive: true,
-            autoFill: true,
-            colReorder: true,
-            keys: true,
-            rowReorder: true,
-            select: true
+            autoFill: false,
+            colReorder: false,
+            keys: false,
+            rowReorder: false,
+            select: false,
+            ordering: false,
+            pageLength:50,
         });
     }
 };
