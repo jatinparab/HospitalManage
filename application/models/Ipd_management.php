@@ -18,6 +18,23 @@ Class Ipd_Management extends CI_Model{
     return "SUK".$random;
         
     }
+    public function finalsubmitipd($data){
+       // print_r($data);
+        if($this->db->insert('ipd_done',$data)){
+            date_default_timezone_set('Asia/Kolkata');
+            $this->db->set('done',1);
+            $this->db->set('date_of_discharge',date('Y-m-d'));
+            $this->db->where('ipd_number',$data['ipd_number']);
+            $x =$this->db->update('ipd_entries');
+            if($x){
+                return true;
+            }else{
+                return $this->db->error();
+            }
+        }else{
+            return $this->db->error();
+        }
+    }
 
     public function shift($data){
         $this->db->where('ipd_number',$data['ipd_number']);
@@ -52,7 +69,17 @@ Class Ipd_Management extends CI_Model{
     }
     public function get_ipd_details(){
         $this->db->order_by("id","DESC");
+        $this->db->where('done',0);
         return $this->db->get('ipd_entries')->result_array();
+    }
+    public function get_ipd_paid(){
+        $this->db->order_by("id","DESC");
+        $this->db->where('done',1);
+        return $this->db->get('ipd_entries')->result_array();
+    }
+    public function gettotal($ipd_number){
+        $this->db->where('ipd_number',$ipd_number);
+        return $this->db->get('ipd_done')->row_array();
     }
     public function add_daily($ipd_number,$ward_name){
         if($ward_name == 'General'){
@@ -80,7 +107,7 @@ Class Ipd_Management extends CI_Model{
      //   return $now;
              $number = round($datediff / (60 * 60 * 24));
              if($number == 0 ) {
-                 $number == 1;
+                 $number = 1;
              }
              $data['ipd_number']=$ipd_number;
              $data['name'] = 'bed charges - '.$ward_name;
@@ -92,7 +119,7 @@ Class Ipd_Management extends CI_Model{
              if($this->db->update('ipd_charges',$data)){
                     $data['amount'] = 400;
                     $data['name'] = 'ward charges - '.$ward_name;
-                 $data['total'] = $data['amount']*$data['number'];
+                 $data['total'] = $data['amount']*$number;
                  $this->db->where('ipd_number',$ipd_number);
                  $this->db->where('name','ward charges - '.$ward_name);
                  if($this->db->update('ipd_charges',$data)){
@@ -110,13 +137,17 @@ Class Ipd_Management extends CI_Model{
         $datediff = $now - strtotime($hm);
      //   return $now;
         $number = round($datediff / (60 * 60 * 24));
+        
+        if($number == 0 ) {
+            $number = 1;
+        }
         $data['ipd_number']=$ipd_number;
         $data['name'] = 'bed charges - '.$ward_name;
-        $data['amount'] = 2000;
+        $data['amount'] = 200;
         $data['number'] = $number;
         $data['total'] = $data['amount']*$data['number'];
         if($this->db->insert('ipd_charges',$data)){
-            $data['amount'] = 4000;
+            $data['amount'] = 400;
             $data['name'] = 'ward charges - '.$ward_name;
             $data['total'] = $data['amount']*$data['number'];
             if($this->db->insert('ipd_charges',$data)){
@@ -129,6 +160,25 @@ Class Ipd_Management extends CI_Model{
         }
     }
     }
+
+    public function insertdiscount($data){
+        $array = array('ipd_number' => $data['ipd_number'], 'name' => 'Discount');
+                $this->db->where($array);
+                $x = $this->db->get('ipd_charges');
+                if($x->num_rows()>0){
+                   // return $x->result_array();
+                    $this->db->where('ipd_number',$data['ipd_number']);
+                    $this->db->where('name','Discount');
+                    $row = $this->db->get('ipd_charges')->result_array()[0];
+                    $data['total'] += $row['total'];
+                    $this->db->where('ipd_number',$data['ipd_number']);
+                    $this->db->where('name','Discount');
+                    $y = $this->db->update('ipd_charges',$data);
+                    return $y;
+                }else{
+                   return $this->db->insert('ipd_charges',$data);
+                }
+            }
 
     public function pay_partial($ipd_number, $amount){
         $data['ipd_number'] = $ipd_number;

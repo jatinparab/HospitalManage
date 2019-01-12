@@ -108,6 +108,7 @@ if (isset($this->session->userdata['logged_in'])) {
 									
                                     <div class="col-md-2">
                                         <select name="ward" id="ward" class="form-control">
+                                            <option value='-1'>Select</option>
                                             <option value="General">General</option>
                                             <option value="Special">Special</option>
                                             <option value="ICU">ICU</option>

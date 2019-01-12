@@ -34,14 +34,34 @@ class Ipd extends CI_Controller {
                 die($this->ipd_management->ipdsubmit($data));
             }
         }
+        public function finalsubmitipd(){
+            $data = $this->input->post();
+            $ipd_number = $data['ipd_number'];
+            $amount = -$data['total'];
+            unset($data['total']);
+            if($this->ipd_management->pay_partial($ipd_number, $amount)){
+                //print_r($this->ipd_management->finalsubmitipd($data));
+                if($this->ipd_management->finalsubmitipd($data)){
+                    echo 'success';
+                }else{
+                    die($this->ipd_management->finalsubmitipd($data));
+                }
+            }
+        }
 
         public function shift(){
             $data = $this->input->post();
             $ipd_number = $data['ipd_number'];
             $data['patient_data'] = $this->ipd_management->get_ipd_details_from_id($ipd_number);
             $ward_name = $data['patient_data']['ward'];
-            $this->ipd_management->add_daily($ipd_number,$ward_name);
+            date_default_timezone_set('Asia/Kolkata');
+            if($data['patient_data']['date_of_addmission'] != date('Y-m-d')){
+                //echo 'test';
+                echo date('Y-m-d');
+                $this->ipd_management->add_daily($ipd_number,$ward_name);
+            }
             if($this->ipd_management->shift($data) == TRUE){
+               // echo date('Y-m-d');
                 echo 'success';
             }else{
                 die($this->ipd_management->shift($data));
@@ -102,17 +122,30 @@ class Ipd extends CI_Controller {
 
         }
 
+        // public function discountipd(){
+        //     $data = $this->input->post();
+        //     $data['name'] = 'Discount';
+        //     $data['number'] = 1;
+        //     $data['total'] = -$data['amount'];
+        //     $data['type'] = 6;
+        //     if(!$this->ipd_management->insertcharge($data)){
+        //         die($this->ipd_management->insertcharge($data));
+        //     }else{
+        //         echo 'success';
+        //     }
+        // }
+
         public function discountipd(){
             $data = $this->input->post();
             $data['name'] = 'Discount';
             $data['number'] = 1;
-            $data['total'] = -$data['amount'];
+            $data['total'] = $data['amount'];
             $data['type'] = 6;
-            if(!$this->ipd_management->insertcharge($data)){
-                die($this->ipd_management->insertcharge($data));
-            }else{
-                echo 'success';
-            }
+            
+                if($this->ipd_management->insertdiscount($data)){
+                    echo 'success';
+                }
+            
         }
 
 

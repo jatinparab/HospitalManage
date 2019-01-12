@@ -40,46 +40,28 @@ $('.onlytext').keydown(function (e) {
 });
 
 function printDiv(divName){
-    $('#hidethis').hide();
-    $('#discount').hide();
-    var printContents = document.getElementById('print1').innerHTML;
-  //  var printContents = printContents + document.getElementById('print2').innerHTML;
-    var printContents = printContents + document.getElementById('jatin').innerHTML;
-
-    var originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContents;
-    window.print();
-    document.body.innerHTML = originalContents;
-    window.location = "";
-}
-
-function partialsubmitipd(ipd_number){
-    amount = $('#amountpaid').val();
-    $.ajax({
-        url: "../partialsubmitipd",
-        type: "post",
-        data: {
-            'ipd_number':ipd_number,
-            'amount':amount
-        },
-        success: function (response) {
-            if(response == 'success'){
-                alert('bill partially submitted');
-                window.location = '../../ipd_details';
-            }
-            
-           // you will get response from your php page (what you echo or print)                 
-
-        }
-        
-
-
+    $('.hideit').hide();
+    $('body').printThis({
+        importCSS: true,                // import parent page css
+       importStyle: false,             // import style tags
+       printContainer: true, 
+       afterPrint: reload  
     });
+    
+  //  var printContents = printContents + document.getElementById('print2').innerHTML;
+    
+}
 
+function savepdf(){
+    
 }
 
 
-function partialsubmitopd(receipt_number){
+
+
+function partialsubmitopd(receipt_number,total){
+    total = parseInt(total);
+    if($('#amount_paid').val()>0 && $('#amount_paid').val() <=total){
     amount = $('#amount_paid').val();
     $.ajax({
         url: "../partialsubmitopd",
@@ -92,38 +74,151 @@ function partialsubmitopd(receipt_number){
 
             if(response == 'success'){
                 alert('bill partially submitted');
-                window.location = '../../opd_details';
+               reload();
             }
         }
     });
+}else{
+    alert("Please enter a valid value");
+}
 
 }
 
 
-function givediscount(ipd_number){
-    var type = $('#type').val();
-    var amount = $('#amount').val();
-    var total = $('#finalamount').html();
-   
-    if(type==0){
-        amt = Math.floor(total*(amount/100));
-        //$('#discount').hide();
+function partialsubmitipd(ipd_number,total){
+    total = parseInt(total);
+    if($('#amount_paid').val()>0 && $('#amount_paid').val() <=total){
+    amount = $('#amount_paid').val();
+    $.ajax({
+        url: "../partialsubmitipd",
+        type: "post",
+        data: {
+            'ipd_number':ipd_number,
+            'amount':amount
+        },
+        success: function (response) {
+
+            if(response == 'success'){
+                alert('bill partially submitted');
+               reload();
+            }
+        }
+    });
+}else{
+    alert("Please enter a valid value");
+}
+
+}
+
+
+function finalsubmitipd(ipd_number,total,paid){
+    total = parseInt(total);
+    paid = parseInt(paid);
+    amount = total+paid;
+    console.log(total);
+    if($('#amount_paid').val() == total){
+        $.ajax({
+            url: "../finalsubmitipd",
+            type: "post",
+            data: {
+                'ipd_number':ipd_number,
+                'amount':amount,
+                'total':total
+            },
+            success: function (response) {
+                if(response == 'success'){
+                    alert('bill submitted');
+                   reload();
+                }
+            }
+        });
+
     }else{
-       amt = amount;
-      //  $('#discount').hide();
+        if($('#amount_paid').val() < total){
+            alert("Please use partial submit");
+        }else{
+            alert("Please enter a valid value");
+        }
     }
+
+}
+
+function buttonactive(value){
+    if($('#ward').val() == value){
+        $("#shiftbtn").attr("disabled", true);
+    }else{
+        $("#shiftbtn").attr("disabled", false);
+    }
+}
+
+
+function finalsubmit(receipt_number,total,paid){
+    total = parseInt(total);
+    paid = parseInt(paid);
+    amount = total+paid;
+    console.log(total);
+    if($('#amount_paid').val() == total){
+        $.ajax({
+            url: "../finalsubmitopd",
+            type: "post",
+            data: {
+                'receipt_number':receipt_number,
+                'amount':amount,
+                'total':total
+            },
+            success: function (response) {
+                if(response == 'success'){
+                    alert('bill submitted');
+                   reload();
+                }
+            }
+        });
+
+    }else{
+        if($('#amount_paid').val() < total){
+            alert("Please use partial submit");
+        }else{
+            alert("Please enter a valid value");
+        }
+    }
+
+}
+
+
+function givediscountipd(total,ipd_number){
+    if($('#discounttype').val()=='1'){
+        if($('#discountamt').val()>0 && $('#discountamt').val()<=100){
+            amt = $('#discountamt').val();
+            discount = Math.ceil(percentage(total,amt));
+         
+        }else{
+            alert("Please enter a valid percent value");
+            return false;
+        }
+    }
+    if($('#discounttype').val()=='2'){
+        total = parseInt(total);
+        if($('#discountamt').val()>0 && $('#discountamt').val()<=total){
+            amt = $('#discountamt').val();
+            discount = Math.ceil(amt);
+        }else{
+            alert("Please enter a valid value");
+            return false;
+        }
+    }
+    
     $.ajax({
         url: "../discountipd",
         type: "post",
         data: {
             'ipd_number':ipd_number,
-            'amount':amt
+            'amount':discount
         },
         success: function (response) {
 
             if(response == 'success'){
                 alert('discount given');
-                window.location = '';
+                reload();
             }
         }
     });
@@ -202,6 +297,10 @@ function ipdformsubmit(){
         alert("Please select a gender!");
         return false;
     }
+    if($('#ward').val() == '-1'){
+        alert("Please select a valid ward");
+        return false;
+    }
     if($('#prefered_doctor').val() == ''){
         alert("Please fill all the mandatory fields!");
         return false;
@@ -251,5 +350,63 @@ function shiftpatient(ipd_number){
 
     });
 }
-    
+    function radioclick(){
+       // console.log($('input[name=optradio]:checked').val());
+        if($('input[name=optradio]:checked').val() == '1'){
+           
+            $('.discountdiv').show();
+        }else{
+           
+            $('.discountdiv').hide();
+        }
+    }
+
+    function givediscount(total,receipt_number){
+        if($('#discounttype').val()=='1'){
+            if($('#discountamt').val()>0 && $('#discountamt').val()<=100){
+                amt = $('#discountamt').val();
+                discount = Math.ceil(percentage(total,amt));
+             
+            }else{
+                alert("Please enter a valid percent value");
+                return false;
+            }
+        }
+        if($('#discounttype').val()=='2'){
+            total = parseInt(total);
+            if($('#discountamt').val()>0 && $('#discountamt').val()<=total){
+                amt = $('#discountamt').val();
+                discount = Math.ceil(amt);
+            }else{
+                alert("Please enter a valid value");
+                return false;
+            }
+        }
+        $.ajax({
+            url: "../discount",
+            type: "post",
+            data: {
+                'amount':discount,
+                'receipt_number':receipt_number
+            },
+            success: function (response) {
+                if(response == 'success'){
+                    alert('discount added');
+                    reload();
+                }
+            }
+        });
+        
+    }
+
+
+function percentage(num, per)
+    {
+    return (num/100)*per;
+    }
+
+    function reload(){
+        url = window.location.href;
+        $('body').load(url);
+    }
     

@@ -10,7 +10,8 @@ if (isset($this->session->userdata['logged_in'])) {
 	header("location: login");
     }
     
-    $opd=$this->opd_management->get_opd_details();
+    $opd=$this->opd_management->get_opd_paid();
+    
     
 ?>
 
@@ -36,7 +37,7 @@ if (isset($this->session->userdata['logged_in'])) {
                     <div class="panel panel-inverse">
                         <div class="panel-heading">
                             
-                            <h4 class="panel-title">OPD - Patients</h4>
+                            <h4 class="panel-title">Patient Details</h4>
                         </div>
                         <div class="panel-body">
                             <table id="data-table" class="table table-striped table-bordered">
@@ -47,29 +48,38 @@ if (isset($this->session->userdata['logged_in'])) {
                                         <th>Receipt Number</th>
                                         <th>Patient Name</th>
                                         <th>Contact Number</th>
-                                        <th> Address</th>
-                                        <th>Age</th>
-                                        <th>Sex</th>
-                                        <th>Diagnosis</th>
-                                        <th>Checked By</th>
-                                        <th>Remarks</th>
-                                        <th class="noExport">Manage</th>
+                                        <th>Bill Amount</th>
+                                        
+                                        
+                                        
+                                        <th class="noExport">View Bill</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php foreach($opd as $entry){ ?>
                                     <tr>
                                     <?php foreach($entry as $field => $value){
-                                        if($field == 'done'){
-                                            continue;
-                                        }
+                                       // print_r($entry);
+                                        if($field=='id' || $field=='receipt_number' || $field == 'patient_name' || $field == 'contact_number' ){
+
+                                        
                                         ?>
                                         <td><?=$value?></td>
-                                    <?php } ?>
-                                    <?php  ?>
-                                    <td><a href="<?=base_url()?>opd/edit/<?=$entry['id']?>" class="btn btn-info" >Manage</a></td>
+                                    <?php }if($field=='receipt_number'){
+                                    $total = $this->opd_management->gettotal($value);
+                                   // print_r($total);
+                                    }
+                                    ?> 
+                                    
+                                    <?php
+                                
+                                } ?>
+                                    <td>Rs. <?=$total['amount']?></td>
+                                    <td><a href="<?=base_url()?>opd/billing/<?=$entry['id']?>" class="btn btn-info" >View Bill</a></td>
                                     </tr>
                                 <? }?>
+
+                                
                                 </tbody>
                             </table>
                         </div>

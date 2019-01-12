@@ -10,15 +10,7 @@
 				<!-- begin sidebar user -->
 				<ul class="nav">
 					<br>
-                    
-                    <li>
-                    <a onclick="hidebar()" >
-                    <i class="ion-ios-arrow-back pull-right"></i>
-                    </a>
-                     
-                    
-                    </li>
-                    
+ 
 					<li class="has-sub">
 						<a >
                         <b class="caret pull-right"></b>
@@ -70,6 +62,22 @@
                             </a></li>
 							<li><a href="<?=base_url()?>opd_billing">
                         OPD Billing
+                            </a></li>
+                        </ul>
+					</li>
+					<li class="has-sub">
+						<a >
+                        <b class="caret pull-right"></b>
+						    <i class="ion-ios-pulse-strong"></i> 
+						    <span>View Paid Bills</span>
+						</a>
+                        <ul class="sub-menu">
+							
+							<li><a href="<?=base_url()?>ipd_paid">
+                           IPD Bills
+                            </a></li>
+							<li><a href="<?=base_url()?>opd_paid">
+                            OPD Bills
                             </a></li>
                         </ul>
 					</li>

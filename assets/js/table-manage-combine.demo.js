@@ -12,11 +12,15 @@ var handleDataTableCombinationSetting = function() {
         $('#data-table').DataTable({
             dom: 'lBfrtip',
             buttons: [
-                { extend: 'copy', className: 'btn-sm' },
-                { extend: 'csv', className: 'btn-sm' },
-                { extend: 'excel', className: 'btn-sm' },
-                { extend: 'pdf', className: 'btn-sm' },
-                { extend: 'print', className: 'btn-sm' }
+                { extend: 'excel', className: 'btn-sm btn-info m-l-5', exportOptions: {
+                    columns: "thead th:not(.noExport)"
+                }},
+                { extend: 'pdf', className: 'btn-sm btn-success m-l-5', exportOptions: {
+                    columns: "thead th:not(.noExport)"
+                } },
+                { extend: 'print', className: 'btn-sm btn-danger m-l-5', exportOptions: {
+                    columns: "thead th:not(.noExport)"
+                } }
             ],
             responsive: true,
             autoFill: false,

@@ -28,6 +28,20 @@ class Opd extends CI_Controller {
             }
         }
 
+        public function discount(){
+            $data = $this->input->post();
+            $data['name'] = 'Discount';
+            $data['number'] = 1;
+            $data['total'] = $data['amount'];
+//$data['type'] = 6;
+            
+                if($this->opd_management->insertdiscount($data)){
+                    echo 'success';
+                }
+            
+        }
+        
+
         public function partialsubmitopd(){
             $data = $this->input->post();
             $receipt_number = $data['receipt_number'];
@@ -36,6 +50,20 @@ class Opd extends CI_Controller {
                 echo 'success';
             }else{
                 die($this->opd_management->pay_partial($data));
+            }
+        }
+
+        public function finalsubmitopd(){
+            $data = $this->input->post();
+            $receipt_number = $data['receipt_number'];
+            $amount = -$data['total'];
+            unset($data['total']);
+            if($this->opd_management->pay_partial($receipt_number, $amount)){
+                if($this->opd_management->finalsubmitopd($data)){
+                    echo 'success';
+                }else{
+                    die($this->opd_management->finalsubmitopd($data));
+                }
             }
         }
         public function edit($id){

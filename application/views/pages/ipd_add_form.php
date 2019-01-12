@@ -51,14 +51,14 @@ if (isset($this->session->userdata['logged_in'])) {
                                     </div>
                                     <label   class="col-md-2 control-label">Ward <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
-                                        <select id="ward" name="ward" class="form-control">
+                                        <select id="ward" onchange="buttonactive('<?=$patient_data['ward'];?>')" name="ward" class="form-control">
                                             <option <?php if($patient_data['ward'] == 'General'){ echo 'selected'; } ?> >General</option>
                                             <option <?php if($patient_data['ward'] == 'ICU'){ echo 'selected'; } ?> >ICU</option>
                                             <option <?php if($patient_data['ward'] == 'SICU'){ echo 'selected'; } ?> >SICU</option>
                                             <option <?php if($patient_data['ward'] == 'Special'){ echo 'selected'; } ?> >Special</option>
                                         </select>
                                     </div>
-                                    <a class="btn btn-danger" onclick="shiftpatient('<?=$patient_data['ipd_number']?>')">Shift</a>
+                                    <button class="btn btn-danger" id="shiftbtn" disabled  onclick="shiftpatient('<?=$patient_data['ipd_number']?>')">Shift</button>
                                 </div>
                                 
                                 <br>
