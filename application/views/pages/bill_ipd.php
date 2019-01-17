@@ -14,11 +14,16 @@
 ?>
 
 <?php  $this->load->view('templates/head'); ?>
+<style>
+body{
+  background:#fff !important;
+}
+</style>
 
-<div  class="container" style="margin-top:100px;background-color:#fff;padding:25px;margin-bottom:100px;">
+<div  class="container" id="bill-bg" style="margin-top:100px;padding:25px;margin-bottom:100px;">
 <div class="row pad-top-botm ">
          <div class="col-lg-6 col-md-6 col-sm-6 ">
-            <img src="https://via.placeholder.com/300x150" class="img-responsive hideit" style="padding-bottom:20px;" /> 
+            <img src="<?=base_url()?>assets/img/LOGO.jpg" style="height:150px" class="img-responsive hideit"  /> 
          </div>
           <div class="col-lg-6 col-md-6 col-sm-6 text-right" style="font-size:17px;">
             
@@ -69,13 +74,13 @@
     
     <div class="row">
     	<div class="col-md-12">
-    		<div class="panel panel-default">
+    		<div class="panel panel-default tr-bg" id="panel-bill">
     			<div class="panel-heading">
     				<h3 class="panel-title"><strong>Billing summary</strong></h3>
     			</div>
-    			<div class="panel-body">
+    			<div class="panel-body tr-bg">
     				<div class="table-responsive">
-    					<table class="table table-condensed">
+    					<table  class="table table-condensed tr-bg">
     						<thead>
                                 <tr>
                                 <td><strong>#</strong></td>

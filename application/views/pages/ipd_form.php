@@ -40,12 +40,12 @@ if (isset($this->session->userdata['logged_in'])) {
                 <!-- begin col-6 -->
 			    <div class="col-md-12 col-sm-offset-0">
 			        <!-- begin panel -->
-                    <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
-                        <div class="panel-heading">
+                    <div class="pan el panel-inverse" data-sortable-id="form-stuff-1">
+                        <div class="pan el-heading">
                            
                             <h4 class="panel-title">IPD Form</h4>
                         </div>
-                        <div class="panel-body">
+                        <div class="pan el-body">
                             <form action="<?=base_url()?>Ipd/formSubmit" onsubmit="return ipdformsubmit();" method="post" class="form-horizontal" >
                                 <div class="form-group">
                                     <label class="col-md-1 col-md-offset-2 control-label">Sr No.</label>

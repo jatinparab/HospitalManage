@@ -31,13 +31,13 @@ if (isset($this->session->userdata['logged_in'])) {
 			<div class="row">
                 <!-- begin col-6 -->
 			    <div class="col-md-12">
-			        <!-- begin panel -->
-                    <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
-                        <div class="panel-heading">
+			        <!-- begin pane l -->
+                    <div class="pan el panel-inverse" data-sortable-id="form-stuff-1">
+                        <div class="pane l-heading">
                             
                             <h4 class="panel-title">IPD Form</h4>
-                        </div>
-                        <div class="panel-body">
+                        </div> 
+                        <div class="pan el-body">
                             <form  action="<?=base_url()?>Ipd/ipdAdd" method="post" class="form-horizontal col-sm-8 col-sm-offset-2">
                                 <input class="hidden" value="<?=$patient_data['ipd_number'];?>" name="ipd_number">
                                 <div class="form-group">

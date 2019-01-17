@@ -33,12 +33,12 @@ if (isset($this->session->userdata['logged_in'])) {
                 <!-- begin col-6 -->
 			    <div class="col-md-12">
 			        <!-- begin panel -->
-                    <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
-                        <div class="panel-heading">
+                    <div class="pan el panel-inverse" data-sortable-id="form-stuff-1">
+                        <div class="pan el-heading">
                             
                             <h4 class="panel-title">Visiting Faculty Form</h4>
                         </div>
-                        <div class="panel-body">
+                        <div class="pan el-body">
                             <form action="<?=base_url()?>Ipd/visitingSubmit" method="post" class="form-horizontal col-sm-8 col-sm-offset-2">
                                 
                             <div class="form-group">

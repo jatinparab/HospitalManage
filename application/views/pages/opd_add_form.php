@@ -32,13 +32,13 @@ if (isset($this->session->userdata['logged_in'])) {
                 <!-- begin col-6 -->
 			    <div class="col-md-12">
 			        <!-- begin panel -->
-                    <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
-                        <div class="panel-heading">
+                    <div class="pan el panel-inverse" data-sortable-id="form-stuff-1">
+                        <div class="pan el-heading">
                             
                             <h4 class="panel-title">OPD Form</h4>
                         </div>
                         <br>
-                        <div class="panel-body text-center">
+                        <div class="pa nel-body text-center">
                         <button class="btn  btn-danger"onclick="movetoipd('<?=$patient_data['id']?>')">Move to IPD</button><br><br><br>
                             <form  action="<?=base_url()?>Opd/opdAdd" method="post" class="form-horizontal col-sm-8 col-sm-offset-2">
                                 <input class="hidden" value="SUKPL<?=$patient_data['id']?>" name="receipt_number">

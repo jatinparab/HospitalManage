@@ -18,7 +18,7 @@ var handleDataTableCombinationSetting = function() {
                 { extend: 'pdf', className: 'btn-sm btn-success m-l-5', exportOptions: {
                     columns: "thead th:not(.noExport)"
                 } },
-                { extend: 'print', className: 'btn-sm btn-danger m-l-5', exportOptions: {
+                { extend: 'print', className: 'btn-sm btn-warning m-l-5', exportOptions: {
                     columns: "thead th:not(.noExport)"
                 } }
             ],

@@ -73,7 +73,7 @@
 						</a>
                         <ul class="sub-menu">
 							
-							<li><a href="<?=base_url()?>ipd_paid">
+							<li><a style="color:red" href="<?=base_url()?>ipd_paid">
                            IPD Bills
                             </a></li>
 							<li><a href="<?=base_url()?>opd_paid">

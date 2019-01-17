@@ -13,7 +13,7 @@
 			<div class="container-fluid">
 				<!-- begin mobile sidebar expand / collapse button -->
 				<div class="navbar-header">
-					<a href="<?=base_url()?>login" class="navbar-brand"><span class="navbar-logo"><i class="ion-ios-cloud"></i></span> <b>Sukham</b> Hospital</a>
+					<a href="<?=base_url()?>login" class="-brand"><img src="<?=base_url()?>assets/img/logo-new.jpg" style="height:100px;" class="img-responsive" alt=""></a>
 					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
 					<span class="icon-bar"></span>
 						<span class="icon-bar"></span>

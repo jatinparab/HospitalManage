@@ -33,12 +33,12 @@ if (isset($this->session->userdata['logged_in'])) {
 			    <!-- begin col-12 -->
 			    <div class="col-md-12">
 			        <!-- begin panel -->
-                    <div class="panel panel-inverse">
-                        <div class="panel-heading">
+                    <div class="pan el panel-inverse">
+                        <div class="pan el-heading">
                             
                             <h4 class="panel-title">OPD - Patients</h4>
                         </div>
-                        <div class="panel-body">
+                        <div class="pa nel-body">
                             <table id="data-table" class="table table-striped table-bordered">
                                 <thead>
                                
