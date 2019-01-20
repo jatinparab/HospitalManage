@@ -1,9 +1,10 @@
 <?php if (isset($this->session->userdata['logged_in'])) {
 	$name = ($this->session->userdata['logged_in']['name']);
-	$username = ($this->session->userdata['logged_in']['username']);
-	} else if(0) {
-	header("location: logn");
-	}
+    $username = ($this->session->userdata['logged_in']['username']);
+    header("location: user_main");
+
+	} 
+
 	
   //  $latest_entry = $this->opd_management->getlatestopd();
 
@@ -39,25 +40,7 @@
                 </div>
 				<!-- end navbar-collapse -->
 				
-				<!-- begin header navigation right -->
-				<ul class="nav navbar-nav navbar-right">
-					
-					
-					<li class="dropdown navbar-user">
-						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-							<span class="user-image online">
-								<img src="<?=base_url()?>assets/img/user-13.jpg" alt="" /> 
-							</span>
-							<span class="hidden-xs"><?=$name?></span> <b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu animated fadeInLeft">
-							
-							
-							
-							<li><a href="<?php echo base_url() ?>logout">Log Out</a></li>
-						</ul>
-					</li>
-				</ul>
+				
 				<!-- end header navigation right -->
 			</div>
 			<!-- end container-fluid -->

@@ -1,24 +1,11 @@
 
-<?php
-if (isset($this->session->userdata['logged_in'])) {
-$loc = base_urL()."user_main";
-header("location: ".$loc);
-}
-?>
+
+<?php $this->load->view('templates/head2') ?>
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade">
 	    <!-- begin login -->
-        <div class="login bg-black animated fadeInDown">
-            <!-- begin brand -->
-            <div class="login-header">
-                <div class="brand">
-                    <span class="logo"><i class="ion-ios-cloud"></i></span> Karjat Login
-                    <small>Please sign in to continue.</small>
-                </div>
-                <div class="icon">
-                    <i class="ion-ios-locked"></i>
-                </div>
-            </div>
+        <div style="margin-top:-170px;background-color:rgba(0,0,0,0.85);width:503px;margin-left:400px;" class="login animated fadeInDown">
+           <h2 class="text-center text-white"><strong>Sukham Hospital</strong> <br> Panvel Login</h2>
             <!-- end brand -->
             <div class="login-content">
                 <form action="<?php echo base_url() ?>Auth/validate" method="POST" class="margin-bottom-0">
@@ -43,7 +30,7 @@ header("location: ".$loc);
                         </label>
                     </div>
                     <div class="login-buttons">
-                        <button type="submit" class="btn btn-primary btn-block btn-lg">Sign me in</button>
+                        <button type="submit" class="btn btn-warning btn-block btn-lg">Sign me in</button>
                     </div>
                 </form>
             </div>

@@ -23,7 +23,7 @@ body{
 <div class="container" id="bill-bg" style="margin-top:100px;padding:25px;margin-bottom:100px;">
 <div class="row pad-top-botm ">
          <div class="col-lg-6 col-md-6 col-sm-6 ">
-            <img src="<?=base_url()?>assets/img/LOGO.jpg" style="height:150px" class="img-responsive hideit"/> 
+            <img src="<?=base_url()?>assets/img/LOGO.jpg" style="height:150px" class="img-responsive"/> 
          </div>
           <div class="col-lg-6 col-md-6 col-sm-6 text-right" style="font-size:17px;">
             
@@ -170,9 +170,7 @@ body{
                   <?php } ?>
     						</tbody>
     					</table>
-              <?php if($patient_data['done']){ ?>
-              <h3 class="text-center"> Bill paid</h3>
-              <?php } ?>
+              
     				</div>
             <?php if(!$patient_data['done']){ ?>
             <div class="row hideit">
@@ -219,4 +217,16 @@ body{
             
     			</div>
     		</div>
+        <div>
+        <?php if($patient_data['done']){ ?>
+              <h3 class="text-center"> Bill paid</h3>
+              <br>
+              <div class="row text-center">
+              <button type="button" onclick="printIt()" style="font-size:18px;" class="btn btn-success text-center m-l-10">Print</button>
+              <button type="button" onclick="save2pdf('<?=$patient_data['receipt_number']?>','<?=date('Y-m-d')?>')" style="font-size:18px;" class="btn btn-warning text-center m-l-10">Save To PDF</button>
 
+              </div>
+              
+              <?php } ?>
+        </div>
+        

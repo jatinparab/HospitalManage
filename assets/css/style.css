@@ -4830,6 +4830,14 @@ body .fc button:active {
     color: #999;
     width: 450px;
     margin: 0 auto;
+    margin-top:0px;
+}
+.html2canvas-container { height: 1200px !important; }
+
+.pbill{
+    width:800px !important;
+    margin-top:0px !important;
+    padding-top:0px !important;
 }
 
 

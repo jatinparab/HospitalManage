@@ -19,7 +19,7 @@ $('.onlytext').keydown(function (e) {
     
       var key = e.keyCode;
       
-      if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+      if (!((key == 8) ||(key==9) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
       
         e.preventDefault();
         
@@ -55,9 +55,54 @@ function printDiv(divName){
 function savepdf(){
     
 }
+function addScript(url) {
+    var script = document.createElement('script');
+    script.type = 'application/javascript';
+    script.src = url;
+    document.head.appendChild(script);
+}
+addScript('https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js');
 
+function printIt(){
 
+  $('.hideit').hide();
+    $('.btn').addClass('hidden');
+    html2canvas(document.getElementById('bill-bg')).then(function(canvas) {
+        var myWindow=window.open('','','width=1200,height=1200');
+        myWindow.document.body.appendChild(canvas);
+       
+            myWindow.focus();
+        myWindow.print();
+        myWindow.close();
+        $('.btn').removeClass('hidden');
+        $('.container').removeClass("pbill");   
+        $('.hideit').show();
+        
+    });
+   
 
+  
+}
+
+function save2pdf(id,date){
+    //$('.hideit').hide();
+    $('.btn').addClass('hidden');
+    $('.container').addClass("pbill");
+    var opt = {
+        margin:       0,
+        filename:     id+'-'+date+'.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 1 },
+        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+      };
+      
+    html2pdf(document.getElementById('bill-bg'),opt).then(function(){
+        $('.btn').removeClass('hidden');
+    $('.container').removeClass("pbill");
+    });
+    
+
+}
 
 function partialsubmitopd(receipt_number,total){
     total = parseInt(total);

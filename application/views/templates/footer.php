@@ -38,6 +38,7 @@
 	<script src="<?php echo base_url(); ?>assets/js/table-manage-combine.demo.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/printThis.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/jspdf.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/html2canvas.js"></script>
 	<script src="<?php echo base_url(); ?>assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script src="<?php echo base_url(); ?>assets/plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
