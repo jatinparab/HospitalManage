@@ -81,6 +81,25 @@
                             </a></li>
                         </ul>
 					</li>
+					<li class="has-sub">
+						<a >
+                        <b class="caret pull-right"></b>
+						    <i class="ion-ios-pulse-strong"></i> 
+						    <span>Reports</span>
+						</a>
+                        <ul class="sub-menu">
+							
+							<li><a  href="<?=base_url()?>opd_reports">
+                           OPD Reports
+                            </a></li>
+							<li><a href="<?=base_url()?>ipd_reports">
+                            IPD Reports
+                            </a></li>
+							<li><a href="<?=base_url()?>ot_reports">
+                            OT Reports
+                            </a></li>
+                        </ul>
+					</li>
                    
 				</ul>
 				<!-- end sidebar user -->

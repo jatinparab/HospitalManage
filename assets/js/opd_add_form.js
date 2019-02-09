@@ -356,7 +356,7 @@ function ipdformsubmit(){
 }
 
 function opdsubmit(){
-    if($('#patient_name').val() == '' || $('#contact_number').val() == '' || $('#age').val() == '' || $('#sex').val() == '' ||$('#diagnosis').val() == '' || $('#checked_by').val() == '' ){
+    if($('#patient_name').val() == '' || $('#contact_number').val() == '' || $('#age').val() == '' || $('#sex').val() == '' || $('#checked_by').val() == '' ){
         alert("Please fill all mandatory fields!");
         return false;
     }

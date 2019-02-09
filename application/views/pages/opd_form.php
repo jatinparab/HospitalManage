@@ -57,7 +57,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                     <div class="col-md-2">
                                         <input type="text" id="patient_name" name="patient_name" class="form-control onlytext" placeholder="Patient Name" />
                                     </div>
-                                    <label class="col-md-1 control-label">Mobile Number <span style="color:red;font-size:15px;">*</span></label>
+                                    <label class="col-md-2 control-label" >Mobile Number <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
                                         <input type="text" id="contact_number" type="text"  minlength="10" maxlength="10"  name="contact_number" class="form-control onlynumber" placeholder="Mobile Number" />
                                     </div>
@@ -86,7 +86,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">Diagnosis <span style="color:red;font-size:15px;">*</span></label>
+                                    <label class="col-md-4 control-label">Diagnosis </label>
                                     <div  class="col-md-5">
                                         <input id="diagnosis" name="diagnosis" type="text" class="form-control" placeholder="Default input" />
                                     </div>
