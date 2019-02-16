@@ -5,7 +5,7 @@
 	<div id="page-container" class="fade">
 	    <!-- begin login -->
         <div style="margin-top:-170px;background-color:rgba(0,0,0,0.85);width:503px;margin-left:400px;" class="login animated fadeInDown">
-           <h2 class="text-center text-white"><strong>Sukham Hospital</strong> <br> Panvel Login</h2>
+           <h2 class="text-center text-white"><strong>Sukham Hospital</strong> <br> Karanjade Login</h2>
             <!-- end brand -->
             <div class="login-content">
                 <form action="<?php echo base_url() ?>Auth/validate" method="POST" class="margin-bottom-0">

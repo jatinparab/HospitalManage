@@ -38,10 +38,10 @@ body{
          <div class="col-lg-12 col-md-12 col-sm-12">
              <hr />
              <span>
-                 <strong>Email : </strong>  info@yourdomain.com 
+                 <strong>Email : </strong>  sukhamhospital@gmail.com 
              </span>
              <span>
-                 <strong>Call : </strong>  +0123456789 
+                 <strong>Call : </strong>  +(9136049988, 7400187988)
              </span>
               <span>
                  <strong>Website: </strong>  www.sukhamhospital.com
