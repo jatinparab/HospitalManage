@@ -55,7 +55,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Patient Name <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
-                                        <input type="text" id="patient_name" name="patient_name" class="form-control onlytext" placeholder="Patient Name" />
+                                        <input type="text" id="patient_name" oninput="this.value = this.value.toUpperCase()"  name="patient_name" class="form-control onlytext" placeholder="Patient Name" />
                                     </div>
                                     <label class="col-md-2 control-label" >Mobile Number <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
@@ -94,7 +94,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Checked By <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
-                                        <input id="checked_by" value="Dr. " name="checked_by" type="text" class="form-control onlytext" placeholder="Dr." />
+                                        <input id="checked_by"  oninput="this.value = this.value.toUpperCase()"  value="Dr. " name="checked_by" type="text" class="form-control onlytext focusend" placeholder="Dr." />
                                     </div>
                                     <label class="col-md-1 control-label">Remarks</label>
                                     <div class="col-md-2">

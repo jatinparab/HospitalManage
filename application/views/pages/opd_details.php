@@ -60,14 +60,14 @@ if (isset($this->session->userdata['logged_in'])) {
                                 <?php foreach($opd as $entry){ ?>
                                     <tr>
                                     <?php foreach($entry as $field => $value){
-                                        if($field == 'done'){
+                                        if($field == 'done' || $field == 'date'){
                                             continue;
                                         }
                                         ?>
                                         <td><?=$value?></td>
                                     <?php } ?>
                                     <?php  ?>
-                                    <td><a href="<?=base_url()?>opd/edit/<?=$entry['id']?>" class="btn btn-info" >Manage</a></td>
+                                    <td><a href="<?=base_url()?>opd/edit/<?=$entry['id']?>" class="btn btn-info" style="font-size:6px;color:#fff000000 !important;" ><i class="fa fa-angle-up"></i></a></td>
                                     </tr>
                                 <? }?>
                                 </tbody>

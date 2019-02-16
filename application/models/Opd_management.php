@@ -8,6 +8,17 @@ Class Opd_Management extends CI_Model{
             return false;
         }
     }
+    public function opdreports($start, $end, $type){
+        if($type == 'paid'){
+           return $this->db->query("SELECT * FROM opd_done WHERE date BETWEEN str_to_date('$start','%Y-%m-%d') AND str_to_date('$end','%Y-%m-%d')")->result_array();
+        }
+        if($type == 'unpaid'){
+            return $this->db->query("SELECT * FROM opd_entries WHERE date BETWEEN str_to_date('$start','%Y-%m-%d') AND str_to_date('$end','%Y-%m-%d') AND done = '0'")->result_array();
+        }
+        if($type=='all'){
+            return $this->db->query("SELECT * FROM opd_entries WHERE date BETWEEN str_to_date('$start','%Y-%m-%d') AND str_to_date('$end','%Y-%m-%d')")->result_array();
+        }
+    }
     public function getlatestopd(){
         $this->db->select_max('id');
         $result= $this->db->get('opd_entries')->row_array();
@@ -23,9 +34,25 @@ Class Opd_Management extends CI_Model{
         $this->db->where('done',1);
         return $this->db->get('opd_entries')->result_array();
     }
+    public function gettotalpending($receipt_number){
+        $this->db->where('receipt_number',$receipt_number);
+        $result = $this->db->get('opd_charges')->result_array();
+        $total = 0;
+        foreach($result as $r){
+            $total += $r['total'];
+        }
+        return $total;
+    }
     public function gettotal($receipt_number){
+        $x = $this->db->query("SELECT * FROM opd_entries WHERE receipt_number='$receipt_number' AND done='0'")->result_array();
+        if(count($x)>0){
+            $amount = $this->gettotalpending($receipt_number);
+            $data['amount'] = $amount;
+            return $data;
+        }else{
         $this->db->where('receipt_number',$receipt_number);
         return $this->db->get('opd_done')->row_array();
+        }
     }
 
     public function pay_partial($ipd_number, $amount){
@@ -64,6 +91,11 @@ Class Opd_Management extends CI_Model{
 
     public function get_opd_details_from_id($id){
         $this->db->where('id',$id);
+        $this->db->limit(1);
+        return $this->db->get('opd_entries')->result_array()[0];
+    }
+    public function get_opd_details_from_receipt_number($receipt_number){
+        $this->db->where('receipt_number',$receipt_number);
         $this->db->limit(1);
         return $this->db->get('opd_entries')->result_array()[0];
     }

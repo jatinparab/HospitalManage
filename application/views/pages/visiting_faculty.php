@@ -9,12 +9,12 @@ if (isset($this->session->userdata['logged_in'])) {
 	} else {
 	header("location: login");
     }
-    $ipd_entries = $this->ipd_management->get_ipd_details();
-  // print_r($ipd_entries);
-  //  $srno = $this->ipd_management->getlatestipd();
+    
+    $ipd=$this->ipd_management->get_ipd_details();
+    
     
 ?>
-	
+
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
 		<!-- begin #header -->
@@ -26,88 +26,100 @@ if (isset($this->session->userdata['logged_in'])) {
 			<!-- begin breadcrumb -->
 			
 			<!-- end breadcrumb -->
-			<!-- begin page-header -->			<!-- end page-header -->
+			<!-- begin page-header -->
+			<!-- end page-header -->
 			
 			<!-- begin row -->
 			<div class="row">
-                <!-- begin col-6 -->
+			    <!-- begin col-12 -->
 			    <div class="col-md-12">
 			        <!-- begin panel -->
-                    <div class="pan el panel-inverse" data-sortable-id="form-stuff-1">
+                    <div class="pa nel panel-inverse">
                         <div class="pan el-heading">
                             
-                            <h4 class="panel-title">Visiting Faculty Form</h4>
+                            <h4 class="panel-title">Visiting Faculty Charges</h4>
                         </div>
-                        <div class="pan el-body">
-                            <form action="<?=base_url()?>Ipd/visitingSubmit" method="post" class="form-horizontal col-sm-8 col-sm-offset-2">
-                                
-                            <div class="form-group">
-									<label class="control-label col-md-3">IPD Number</label>
-									<div class="col-md-9">
-									    <select name="ipd_number" class="default-select2 form-control">
-                                            
-                                            <?php foreach($ipd_entries as $entry){ ?>
-                                           <option value="<?=$entry['ipd_number']?>"><?=$entry['ipd_number']?></option>
-                                            <?php } ?>
-                                        </select>
-									</div>
-								</div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Doctor Name</label>
-                                    <div class="col-md-9">
-                                        <input type="text" name="doctor_name" class="form-control onlytext" placeholder="Dr. 	" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Charges Of Doctor</label>
-                                    <div class="col-md-9">
-                                        <div class="col-sm-5">
-                                        <input  type="number" name="amount" class="form-control" placeholder="Amount" />
+                        <div class="pane l-body">
+                        <div class="row" style="padding-top:30px;padding-bottom:30px;">
+                        <div class="col-sm-3 text-center">
+                        <label for=""><h4>Search By</h4> </label>
+                        </div>
+                        <div class="col-sm-3">
+                        <select class="form-control" onchange="selectchange()" name="" id="query-select">
+                            <option value="-1">Select</option>
+                            <option value="patient_name">Name</option>
+                            <option value="ipd_number">IPD Number</option>
+                            <option value="contact_number">Mobile Number</option>
+                        </select>
+                        </div>  
+                        <div class="col-sm-3">
 
-                                        </div>
-                                        
-                                        <div class="col-sm-1 text-center" style="font-size:16px;margin-top:4px"> X </div>
-                                        
-                                        <div class="col-sm-5">
-                                        <input type="number" name="days" class="form-control col-sm-6" placeholder="Days" />
+                        <input id="searchbox" placeholder="Search" class="form-control col-sm-6">
 
-                                        </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button onclick="searchby()" class="btn btn-danger">Search</button>
+                        </div>
+                        
 
-                                    </div>
-                                </div>
-                                
-                            
-                                
+                        
+                        </div>
+
+
+                            <table id="visittable"  class="table table-striped table-bordered">
+                                <thead>
                                
+                                    <tr>
+                                        <th>Sr. No</th>
+                                        <th>IPD Number</th>
+                                        <th>Patient Name</th>
+                                        <th>Contact Number</th>
+                                        <th>Add Charge</th>
+                                        
+                                        
+                                        
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach($ipd as $entry){ ?>
+                                    <tr>
+                                    <?php foreach($entry as $field => $value){
+                                       // print_r($entry);
+                                        if($field=='id' || $field=='ipd_number' || $field == 'patient_name' || $field == 'contact_number' ){
+
+                                        
+                                        ?>
+                                        <td><?=$value?></td>
+                                    <?php }if($field=='receipt_number'){
+                                    //$total = $this->opd_management->gettotal($value);
+                                   // print_r($total);
+                                    }
+                                    ?> 
+                                    
+                                    <?php
                                 
+                                } ?>
+                                    
+                                    <td><a href="<?=base_url()?>visiting?ipd_number=<?=$entry['ipd_number']?>" class="btn btn-info" >Add Charge</a></td>
+                                    </tr>
+                                <? }?>
+
                                 
-                                
-                                
-                                
-                                
-                                
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Submit</label>
-                                    <div class="col-md-9">
-                                        <button type="submit" class="btn btn-sm btn-success">Submit Button</button>
-                                    </div>
-                                </div>
-                            </form>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <!-- end panel -->
                 </div>
-                <!-- end col-6 -->
-                <!-- begin col-6 -->
-              
+                <!-- end col-12 -->
             </div>
             <!-- end row -->
-           
-            <!-- end row -->
-            <!-- begin row -->
-            
-            <!-- end row -->
 		</div>
+			        <!-- begin panel -->
+                    
+                    <!-- end panel -->
+                
 
         <!-- end theme-panel -->
 		
@@ -115,6 +127,7 @@ if (isset($this->session->userdata['logged_in'])) {
 		<a href="javascript:;" class="btn btn-icon btn-circle btn-primary btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 		<!-- end scroll to top btn -->
 	</div>
+
 	<!-- end page container -->
 	
 

@@ -11,7 +11,7 @@ if (isset($this->session->userdata['logged_in'])) {
 	header("location: login");
     }
     
-    $ipd=$this->ipd_management->get_ipd_details();
+    $ipd=$this->ot_management->get_ot_details();
     //print_r($ipd);
 
 ?>
@@ -38,7 +38,7 @@ if (isset($this->session->userdata['logged_in'])) {
                     <div class="pan el panel-inverse">
                         <div class="pan el-heading">
                             
-                            <h4 class="panel-title">IPD - Patients</h4>
+                            <h4 class="panel-title">OT - Operations</h4>
                         </div>
                         <div class="pane l-body">
                             <table id="data-table" class="table table-striped table-bordered">
@@ -48,14 +48,8 @@ if (isset($this->session->userdata['logged_in'])) {
                                         <th>IPD Number</th>
                                         <th>Patient Name</th>
                                         <th>Contact Number</th>
-                                        
-
-                                        <th>Age</th>
-                                        <th>Sex</th>
-                                        <th>Date of admission</th>
-                                        <th>Date of discharge</th>
-                                        <th>Prefered Doctor</th>
-                                        <th>Ward</th>
+                                        <th>Operation Details</th>
+                                        <th>Date of opertion</th>
                                         <th class="noExport">Manange</th>
 
                                     </tr>
@@ -70,12 +64,12 @@ if (isset($this->session->userdata['logged_in'])) {
                                        if($field == 'done' || $field == 'current_applied'){
                                            continue;
                                        }
-                                        if($field != 'address'){
+                                        if($field == 'id' || $field == 'ipd_number' || $field == 'name' || $field == 'number' || $field == 'type' || $field == 'date'){
                                         ?>
                                         <td><?=$value?></td>
                                     <?php } } ?>
                                     <?php  ?>
-                                    <td><a href="<?=base_url()?>ipd/edit/<?=$entry['ipd_number']?>" class="btn btn-info btn-sm" style="font-size:6px;color:#fff000000 !important;" ><i class="fa fa-angle-up"></i></a><br></td>
+                                    <td><a href="<?=base_url()?>ot/edit/<?=$entry['ipd_number']?>" class="btn btn-info btn-sm" style="font-size:6px;color:#fff000000 !important;" ><i class="fa fa-angle-up"></i></a><br></td>
                                     </tr>
                                 <?php }?>        
                                 </tbody>

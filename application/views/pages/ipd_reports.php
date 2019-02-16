@@ -37,7 +37,7 @@ if (isset($this->session->userdata['logged_in'])) {
                     <div class="pa nel panel-inverse">
                         <div class="pan el-heading">
                             
-                            <h4 class="panel-title">OPD Patient Reports</h4>
+                            <h4 class="panel-title">IPD Patient Reports</h4>
                         </div>
                         <div class="pane l-body">
                         <div class="row" style="padding-top:30px;padding-bottom:30px;">
@@ -67,13 +67,13 @@ if (isset($this->session->userdata['logged_in'])) {
                                     </div>
                         
                         <div class="col-sm-3">
-                            <button onclick="search_opd()" class="btn btn-danger">Search</button>
+                            <button onclick="search_ipd()" class="btn btn-danger">Search</button>
                         </div>
                         
 
                         
                         </div>
-<div id="opdreports" >
+<div id="ipdreports" >
 
                             
                             

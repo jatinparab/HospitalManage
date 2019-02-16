@@ -41,6 +41,26 @@
 							<li><a href="<?=base_url()?>ipd_details">
                             IPD Patients
                             </a></li>
+							<li><a href="<?=base_url()?>ipd_deposit">
+                            IPD Deposit
+                            </a></li>
+                        </ul>
+					</li>
+					<li class="has-sub">
+						<a >
+                        <b class="caret pull-right"></b>
+						    <i class="ion-ios-pulse-strong"></i> 
+						    <span>Operation Theater</span>
+						</a>
+                        <ul class="sub-menu">
+							
+							<li><a href="<?=base_url()?>ot_form">
+                           OT Form
+                            </a></li>
+							<li><a href="<?=base_url()?>ot_details">
+                           OT Details
+                            </a></li>
+							
                         </ul>
 					</li>
 					<li>
@@ -63,6 +83,9 @@
 							<li><a href="<?=base_url()?>opd_billing">
                         OPD Billing
                             </a></li>
+							<li><a href="<?=base_url()?>ot_billing">
+                        OT Billing
+                            </a></li>
                         </ul>
 					</li>
 					<li class="has-sub">
@@ -78,6 +101,9 @@
                             </a></li>
 							<li><a href="<?=base_url()?>opd_paid">
                             OPD Bills
+                            </a></li>
+							<li><a href="<?=base_url()?>ot_paid">
+                            OT Bills
                             </a></li>
                         </ul>
 					</li>

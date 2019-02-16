@@ -3,17 +3,14 @@
 	//$this -> load -> session();
 	//session_start();
 //print_r($this->session->userdata['logged_in']);
-// phpinfo(); 
 if (isset($this->session->userdata['logged_in'])) {
 	$name = ($this->session->userdata['logged_in']['name']);
 	$username = ($this->session->userdata['logged_in']['username']);
 	} else {
 	header("location: login");
     }
+    $ot = $this->ot_management->get_ot_details();
     
-    $ipd=$this->ipd_management->get_ipd_details();
-    //print_r($ipd);
-
 ?>
 
 	<!-- begin #page-container -->
@@ -36,48 +33,40 @@ if (isset($this->session->userdata['logged_in'])) {
 			    <div class="col-md-12">
 			        <!-- begin panel -->
                     <div class="pan el panel-inverse">
-                        <div class="pan el-heading">
+                        <div class="p anel-heading">
                             
-                            <h4 class="panel-title">IPD - Patients</h4>
+                            <h4 class="panel-title">Patient Details</h4>
                         </div>
-                        <div class="pane l-body">
+                        <div class="pa nel-body">
                             <table id="data-table" class="table table-striped table-bordered">
                                 <thead>
+                               
                                     <tr>
-                                    <th>Sr Number</th>
+                                        <th>Sr. No</th>
                                         <th>IPD Number</th>
                                         <th>Patient Name</th>
                                         <th>Contact Number</th>
-                                        
-
-                                        <th>Age</th>
-                                        <th>Sex</th>
-                                        <th>Date of admission</th>
-                                        <th>Date of discharge</th>
-                                        <th>Prefered Doctor</th>
-                                        <th>Ward</th>
-                                        <th class="noExport">Manange</th>
-
+                                        <th>Operation Type</th>
+                                        <th >Generate Bill</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                <?php
-                                
-                                foreach($ipd as $entry){ ?>
+                                <?php foreach($ot as $entry){ ?>
                                     <tr>
                                     <?php foreach($entry as $field => $value){
-                                       if($field == 'done' || $field == 'current_applied'){
-                                           continue;
-                                       }
-                                        if($field != 'address'){
+                                       // print_r($entry);
+                                        if($field=='id' || $field=='ipd_number' || $field == 'name' || $field == 'number' || $field == 'type' ){
+
+                                        
                                         ?>
                                         <td><?=$value?></td>
                                     <?php } } ?>
-                                    <?php  ?>
-                                    <td><a href="<?=base_url()?>ipd/edit/<?=$entry['ipd_number']?>" class="btn btn-info btn-sm" style="font-size:6px;color:#fff000000 !important;" ><i class="fa fa-angle-up"></i></a><br></td>
+                                    
+                                    <td><a href="<?=base_url()?>ot/billing/<?=$entry['ipd_number']?>" class="btn btn-info" >Generate Bill</a></td>
                                     </tr>
-                                <?php }?>        
+                                <? }?>
+
+                                
                                 </tbody>
                             </table>
                         </div>
@@ -99,4 +88,6 @@ if (isset($this->session->userdata['logged_in'])) {
 		<a href="javascript:;" class="btn btn-icon btn-circle btn-primary btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 		<!-- end scroll to top btn -->
 	</div>
+	<!-- end page container -->
 	
+

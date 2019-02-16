@@ -21,6 +21,7 @@ class Opd extends CI_Controller {
         public function formSubmit()
         {
             $data = $this->input->post();
+            $data['date'] = date('Y-m-d');
             if($this->opd_management->opdsubmit($data) == TRUE){
                 redirect('/opd_details');
             }else{
@@ -57,6 +58,7 @@ class Opd extends CI_Controller {
             $data = $this->input->post();
             $receipt_number = $data['receipt_number'];
             $amount = -$data['total'];
+            $date = $data['date'];
             unset($data['total']);
             if($this->opd_management->pay_partial($receipt_number, $amount)){
                 if($this->opd_management->finalsubmitopd($data)){

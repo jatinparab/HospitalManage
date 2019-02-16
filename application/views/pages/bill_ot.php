@@ -4,14 +4,13 @@
                 
                   
                 
-                $entries = $this->ipd_management->get_bill_entries($patient_data['ipd_number']);
-                $visiting = $this->ipd_management->get_visiting_entries($patient_data['ipd_number']);                $general = 0;
+                $entries = $this->ot_management->get_bill_entries($patient_data['ipd_number']);
+                $general = 0;
                 $icu = 0;
                 $sicu = 0;
                 $special = 0;
                 $other =0;
                 $already_paid = 0;
-                $dpo = 0;
 ?>
 
 <?php  $this->load->view('templates/head'); ?>
@@ -21,10 +20,10 @@ body{
 }
 </style>
 
-<div  class="container" id="bill-bg" style="margin-top:100px;padding:25px;margin-bottom:100px;">
+<div class="container" id="bill-bg" style="margin-top:100px;padding:25px;margin-bottom:100px;">
 <div class="row pad-top-botm ">
          <div class="col-lg-6 col-md-6 col-sm-6 ">
-            <img src="<?=base_url()?>assets/img/LOGO.jpg" style="height:150px" class="img-responsive "  /> 
+            <img src="<?=base_url()?>assets/img/LOGO.jpg" style="height:150px" class="img-responsive hideit"/> 
          </div>
           <div class="col-lg-6 col-md-6 col-sm-6 text-right" style="font-size:17px;">
             
@@ -59,11 +58,11 @@ body{
     			<div class="col-xs-6">
     				<address style="font-size:13px;">
     				<h4>Patient Info:</h4>
-              <strong>Name:</strong> <?=$patient_data['patient_name']?>
-    					<br><strong>Address:</strong>
-    					<?=$patient_data['address']?><br>
+              <strong>Name:</strong> <?=$patient_data['name']?>
+    				
+    					<br>
               <strong>Phone Number:</strong>
-    					<?=$patient_data['contact_number']?><br>
+    					<?=$patient_data['number']?><br>
     				
     				</address>
     			</div>
@@ -80,75 +79,24 @@ body{
     				<h3 class="panel-title"><strong>Billing summary</strong></h3>
     			</div>
     			<div class="panel-body tr-bg">
-    				<div class="table-responsive">
-    					<table  class="table table-condensed tr-bg">
+    				<div class="table-responsive tr-bg">
+    					<table class="table table-condensed tr-bg">
     						<thead>
                                 <tr>
                                 <td><strong>#</strong></td>
         							<td><strong>Item</strong></td>
-        							<td class="text-center"><strong>Price</strong></td>
-        							<td class="text-center"><strong>Quantity</strong></td>
-        							<td class="text-right"><strong>Total</strong></td>
+        							
+        							
+        							<td colspan='3' class="text-right"><strong>Total</strong></td>
                                 </tr>
     						</thead>
     						<tbody>
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
     						
-                  <?php $i=1; $sum=0;
-                  foreach($visiting as $entry){ ?>
-                    <tr>
-                                 <td><?=$i?></td>
-                         <td>Visiting - <?=$entry['doctor_name']?> </td>
-                     <td class="text-center">Rs. <?=$entry['amount']?></td>
-                     <td class="text-center"><?=$entry['days']?></td>
-                     <td class="text-right">Rs. <?=$entry['amount']*$entry['days']?></td>
-                   </tr>
- 
-                 <?php $i++; } 
-                  
-                  foreach($entries as $entry){ 
-                    
-                      if($entry['type'] == 0 && $general == 0){
-                        $general = 1;
-                        ?>
-                        <tr><td colspan="5">General Ward Charges</td></tr>
-                        <?php
-                      }
-                      if($entry['type'] == 1 && $icu == 0){
-                        $icu = 1;
-                        ?>
-                        <tr><td colspan="5">ICU Ward Charges</td></tr>
-                        <?php
-                      }
-                      if($entry['type'] == 2 && $sicu == 0){
-                        $sicu = 1;
-                        ?>
-                        <tr><td colspan="5">SICU Ward Charges</td></tr>
-                        <?php
-                      }
-                      if($entry['type'] == 3 && $special == 0){
-                        $special = 1;
-                        ?>
-                        <tr><td colspan="5">Special Ward Charges</td></tr>
-                        <?php
-                      }
-                      if($entry['type'] == 4 && $other == 0){
-                        $other = 1;
-                        ?>
-                        <tr><td colspan="5">Other Charges</td></tr>
-                        <?php
-                      }
-                      
-                     // $sum += $entry['total'];
+                  <?php $i=1; $sum=0; foreach($entries as $entry){ 
                     
                     if($entry['name'] == 'Discount'){
                       $discount = $entry;
-                      continue;
-                    }
-                    if(strstr($entry['name'],'Deposit Charge')){
-                      $deposit = $entry;
-                      $dpo += $entry['total'];
-                      //print_r($deposit);
                       continue;
                     }
           
@@ -169,14 +117,10 @@ body{
                                 <tr>
                                 <td><?=$i?></td>
             						<td><?=$entry['name']?> </td>
-    								<td class="text-center">Rs. <?=$entry['amount']?></td>
-    								<td class="text-center"><?=$entry['number']?></td>
-    								<td class="text-right">Rs. <?=$entry['total']?></td>
+    								
+    								<td colspan='3' class="text-right">Rs. <?=$entry['total']?></td>
     							</tr>
-                  <?php $i++; }
-                
-                
-                }?>
+                  <?php $i++; }} ?>
     							<tr>
     								<td class="thick-line"></td>
     								<td class="thick-line"></td>
@@ -184,24 +128,14 @@ body{
     								<td class="thick-line text-center"><strong>Subtotal</strong></td>
     								<td class="thick-line text-right">Rs. <?=$sum?></td>
     							</tr>
-                  <?php if(isset($deposit)){
-                    $sum = $sum + $deposit['total']; ?>
-    							<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-                    <td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Deposit</strong></td>
-    								<td class="no-line text-right">Rs. <?=-$dpo?></td>
-    							</tr>
-                  <?php } ?>
                   <?php if(isset($discount)){
-                    $sum = $sum - $discount['total']; ?>
+                    $sum = $sum + $discount['total']; ?>
     							<tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>
                     <td class="no-line"></td>
     								<td class="no-line text-center"><strong>Discount</strong></td>
-    								<td class="no-line text-right">Rs. <?=$discount['total']?></td>
+    								<td class="no-line text-right">Rs. <?=-$discount['total']?></td>
     							</tr>
                   <?php }if(!$patient_data['done']){ ?>
                   
@@ -263,7 +197,7 @@ body{
           </select>
             </div>
             <div class="col-sm-2 discountdiv" style="display:none">
-            <button class="btn btn-primary m-t-20" onclick="givediscountipd('<?=$sum?>','<?=$patient_data['ipd_number']?>')" >Give Discount</button>
+            <button class="btn btn-primary m-t-20" onclick="givediscountot('<?=$sum?>','<?=$patient_data['ipd_number']?>')" >Give Discount</button>
             </div>
             <div class="col-sm-2 pull-right">
             <label for="amount_paid" class="text-right">Amount Paid</label>
@@ -272,17 +206,16 @@ body{
             </div>
             <br>
         <div class="row hideit" style="margin:5px;">
-        <button onclick="finalsubmitipd('<?=$patient_data['ipd_number']?>','<?=$sum?>','<?=$already_paid?>')" class="btn btn-warning pull-right m-l-5 ">Submit</button>
-            <button onclick="partialsubmitipd('<?=$patient_data['ipd_number']?>','<?=$sum?>')" class="btn btn-primary pull-right m-l-5 ">Partial Submit</button>
-            <button onclick="printIt()" class="btn btn-danger pull-right m-l-5 ">Print</button>
+        <button onclick="finalsubmitot('<?=$patient_data['ipd_number']?>','<?=$sum?>','<?=$already_paid?>')" class="btn btn-warning pull-right m-l-5 ">Submit</button>
+            <button onclick="partialsubmitot('<?=$patient_data['ipd_number']?>','<?=$sum?>')" class="btn btn-primary pull-right m-l-5 ">Partial Submit</button>
+            <button onclick="printDiv()" class="btn btn-danger pull-right m-l-5 ">Print</button>
         </div>
          
             </div>
             <?php } ?>
             
     			</div>
-          
-    		
+    		</div>
         <div>
         <?php if($patient_data['done']){ ?>
               <h3 class="text-center"> Bill paid</h3>
@@ -296,7 +229,3 @@ body{
               <?php } ?>
         </div>
         
-
-
-
-

@@ -1,6 +1,6 @@
 <?php
 
-class Ipd extends CI_Controller {
+class Ot extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -15,6 +15,7 @@ class Ipd extends CI_Controller {
         
         
         // Load database
+        $this->load->model('ot_management');
         $this->load->model('ipd_management');
     }
 
@@ -22,20 +23,20 @@ class Ipd extends CI_Controller {
         {
             $data = $this->input->post();
             //print_r($data);
-            $date = $data['date_of_addmission'];
+            $date = $data['date'];
             $ipd_number = $data['ipd_number'];
            // $date = str_replace('/', '-', $var);
             //echo $date;
-            $data['date_of_addmission'] = date('Y-m-d', strtotime($date));
+            $data['date'] = date('Y-m-d', strtotime($date));
             //print_r($data);
-            if($this->ipd_management->ipdsubmit($data) == TRUE){
+            if($this->ot_management->otsubmit($data) == TRUE){
                 // redirect('/ipd/deposit/'."$ipd_number");
-                redirect('../ipd_details');
+                redirect('../ot_details');
             }else{
-                die($this->ipd_management->ipdsubmit($data));
+                die($this->ot_management->otsubmit($data));
             }
         }
-        public function finalsubmitipd(){
+        public function finalsubmitot(){
             $data = $this->input->post();
             
             $ipd_number = $data['ipd_number'];
@@ -43,13 +44,13 @@ class Ipd extends CI_Controller {
             $date = $data['date'];
             unset($data['total']);
 
-            if($this->ipd_management->pay_partial($ipd_number, $amount)){
+            if($this->ot_management->pay_partial($ipd_number, $amount)){
                // print_r($data);
                 //print_r($this->ipd_management->finalsubmitipd($data));
-                if($this->ipd_management->finalsubmitipd($data)){
+                if($this->ot_management->finalsubmitot($data)){
                     echo 'success';
                 }else{
-                    die($this->ipd_management->finalsubmitipd($data));
+                    die($this->ot_management->finalsubmitot($data));
                 }
             }
         }
@@ -103,22 +104,48 @@ class Ipd extends CI_Controller {
         }
     }
 
-        public function partialsubmitipd(){
+        public function partialsubmitot(){
             $data = $this->input->post();
             $ipd_number = $data['ipd_number'];
             $amount = - $data['amount'];
-            if($this->ipd_management->pay_partial($ipd_number, $amount)){
+            if($this->ot_management->pay_partial($ipd_number, $amount)){
                 echo 'success';
             }else{
-                die($this->ipd_management->pay_partial($data));
+                die($this->ot_management->pay_partial($data));
             }
         }
 
         public function edit($id){
             $data['patient_data'] = $this->ipd_management->get_ipd_details_from_id($id);
             $this->load->view('templates/header', $data);
-            $this->load->view('pages/ipd_add_form', $data);
+            $this->load->view('pages/ot_add_form', $data);
             $this->load->view('templates/footer', $data);
+        }
+
+        public function addCharges(){
+            $data = $this->input->post();
+            $ipd_number = $data['ipd_number'];
+            $ot_charges = $data['ot_value'];
+            $a_charges = $data['a_value'];
+            $s_charges = $data['s_value'];
+            $a_name = $data['a_name'];
+            $s_name = $data['s_name'];
+            if($ot_charges != ''){
+                if(!$this->ot_management->addcharge($ipd_number,$ot_charges,"OT Charge")){
+                    echo 'no';
+                }
+            }
+            if($a_charges != ''){
+                if(!$this->ot_management->addcharge($ipd_number,$a_charges, "Anaesthesia Charges - Dr. ".$a_name)){
+                    echo 'no';
+                }
+            }
+            if($s_charges != ''){
+                if(!$this->ot_management->addcharge($ipd_number,$s_charges, "Surgeon Charges - Dr. ".$s_name)){
+                    echo 'no';
+                }
+            }
+            echo 'success';
         }
         public function ipdAdd(){
             $data = $this->input->post();
@@ -170,14 +197,14 @@ class Ipd extends CI_Controller {
         //     }
         // }
 
-        public function discountipd(){
+        public function discountot(){
             $data = $this->input->post();
             $data['name'] = 'Discount';
-            $data['number'] = 1;
-            $data['total'] = $data['amount'];
-            $data['type'] = 6;
+           
+            $data['total'] = -$data['amount'];
+            unset($data['amount']);
             
-                if($this->ipd_management->insertdiscount($data)){
+                if($this->ot_management->insertdiscount($data)){
                     echo 'success';
                 }
             
@@ -205,11 +232,11 @@ class Ipd extends CI_Controller {
         
         
         public function billing($ipd_number){
-            $data['patient_data'] = $this->ipd_management->get_ipd_details_from_id($ipd_number);
-            $ward_name = $data['patient_data']['ward'];
-            $this->ipd_management->add_daily($ipd_number,$ward_name);
+            $data['patient_data'] = $this->ot_management->get_ot_details_from_id($ipd_number);
+           // $ward_name = $data['patient_data']['ward'];
+           // $this->ipd_management->add_daily($ipd_number,$ward_name);
             $this->load->view('templates/header', $data);
-            $this->load->view('pages/bill_ipd', $data);
+            $this->load->view('pages/bill_ot', $data);
             $this->load->view('templates/footer', $data);
         }
         public function deposit($ipd_number){

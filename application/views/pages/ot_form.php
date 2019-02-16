@@ -10,7 +10,7 @@ if (isset($this->session->userdata['logged_in'])) {
 	header("location: login");
     }
     
-    $opd=$this->opd_management->get_opd_paid();
+    $ipd=$this->ipd_management->get_ipd_details();
     
     
 ?>
@@ -37,36 +37,62 @@ if (isset($this->session->userdata['logged_in'])) {
                     <div class="pa nel panel-inverse">
                         <div class="pan el-heading">
                             
-                            <h4 class="panel-title">Patient Details</h4>
+                            <h4 class="panel-title">Fill Operation Form</h4>
                         </div>
                         <div class="pane l-body">
-                            <table id="data-table" class="table table-striped table-bordered">
+                        <div class="row" style="padding-top:30px;padding-bottom:30px;">
+                        <div class="col-sm-3 text-center">
+                        <label for=""><h4>Search By</h4> </label>
+                        </div>
+                        <div class="col-sm-3">
+                        <select class="form-control" onchange="selectchange()" name="" id="query-select">
+                            <option value="-1">Select</option>
+                            <option value="patient_name">Name</option>
+                            <option value="ipd_number">IPD Number</option>
+                            <option value="contact_number">Mobile Number</option>
+                        </select>
+                        </div>  
+                        <div class="col-sm-3">
+
+                        <input id="searchbox" placeholder="Search" class="form-control col-sm-6">
+
+                        </div>
+                        <div class="col-sm-3">
+                            <button onclick="searchby()" class="btn btn-danger">Search</button>
+                        </div>
+                        
+
+                        
+                        </div>
+
+
+                            <table id="visittable"  class="table table-striped table-bordered">
                                 <thead>
                                
                                     <tr>
                                         <th>Sr. No</th>
-                                        <th>Receipt Number</th>
+                                        <th>IPD Number</th>
                                         <th>Patient Name</th>
                                         <th>Contact Number</th>
-                                        <th>Bill Amount</th>
+                                        <th>Operation Form</th>
                                         
                                         
                                         
-                                        <th class="noExport">View Bill</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach($opd as $entry){ ?>
+                                <?php foreach($ipd as $entry){ ?>
                                     <tr>
                                     <?php foreach($entry as $field => $value){
                                        // print_r($entry);
-                                        if($field=='id' || $field=='receipt_number' || $field == 'patient_name' || $field == 'contact_number' ){
+                                        if($field=='id' || $field=='ipd_number' || $field == 'patient_name' || $field == 'contact_number' ){
 
                                         
                                         ?>
                                         <td><?=$value?></td>
                                     <?php }if($field=='receipt_number'){
-                                    $total = $this->opd_management->gettotal($value);
+                                    //$total = $this->opd_management->gettotal($value);
                                    // print_r($total);
                                     }
                                     ?> 
@@ -74,8 +100,8 @@ if (isset($this->session->userdata['logged_in'])) {
                                     <?php
                                 
                                 } ?>
-                                    <td>Rs. <?=$total['amount']?></td>
-                                    <td><a href="<?=base_url()?>opd/billing/<?=$entry['id']?>" class="btn btn-info" style="font-size:6px;color:#fff000000 !important;" ><i class="fa fa-angle-up"></i></a></td>
+                                    
+                                    <td><a href="<?=base_url()?>operation?ipd_number=<?=$entry['ipd_number']?>" class="btn btn-info" >Fill</a></td>
                                     </tr>
                                 <? }?>
 
@@ -101,6 +127,7 @@ if (isset($this->session->userdata['logged_in'])) {
 		<a href="javascript:;" class="btn btn-icon btn-circle btn-primary btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 		<!-- end scroll to top btn -->
 	</div>
+
 	<!-- end page container -->
 	
 

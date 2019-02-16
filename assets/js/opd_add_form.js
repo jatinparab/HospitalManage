@@ -52,6 +52,38 @@ function printDiv(divName){
     
 }
 
+function printopdreports(){
+    $('.hideit').hide();
+    $('.showit').removeClass('hidden');
+    $('#opdreports').printThis({
+        importCSS: true,                // import parent page css
+       importStyle: false,             // import style tags
+       printContainer: true, 
+       afterPrint: reload  
+    });
+}
+
+function printipdreports(){
+    $('.hideit').hide();
+    $('.showit').removeClass('hidden');
+    $('#ipdreports').printThis({
+        importCSS: true,                // import parent page css
+       importStyle: false,             // import style tags
+       printContainer: true, 
+       afterPrint: reload  
+    });
+}
+
+function printotreports(){
+    $('.hideit').hide();
+    $('.showit').removeClass('hidden');
+    $('#otreports').printThis({
+        importCSS: true,                // import parent page css
+       importStyle: false,             // import style tags
+       printContainer: true, 
+       afterPrint: reload  
+    });
+}
 function savepdf(){
     
 }
@@ -155,11 +187,43 @@ function partialsubmitipd(ipd_number,total){
 
 }
 
+function partialsubmitot(ipd_number,total){
+    total = parseInt(total);
+    if($('#amount_paid').val()>0 && $('#amount_paid').val() <=total){
+    amount = $('#amount_paid').val();
+    $.ajax({
+        url: "../partialsubmitot",
+        type: "post",
+        data: {
+            'ipd_number':ipd_number,
+            'amount':amount
+        },
+        success: function (response) {
+
+            if(response == 'success'){
+                alert('bill partially submitted');
+               reload();
+            }
+        }
+    });
+}else{
+    alert("Please enter a valid value");
+}
+
+}
+
+$('.focusend').focus(function(){
+    var that = this;
+    setTimeout(function(){ that.selectionStart = that.selectionEnd = 10000; }, 0);
+  });
+
 
 function finalsubmitipd(ipd_number,total,paid){
     total = parseInt(total);
     paid = parseInt(paid);
     amount = total+paid;
+    date = new Date();
+    date = formatDate((date));
     console.log(total);
     if($('#amount_paid').val() == total){
         $.ajax({
@@ -168,7 +232,8 @@ function finalsubmitipd(ipd_number,total,paid){
             data: {
                 'ipd_number':ipd_number,
                 'amount':amount,
-                'total':total
+                'total':total,
+                'date':date
             },
             success: function (response) {
                 if(response == 'success'){
@@ -188,12 +253,214 @@ function finalsubmitipd(ipd_number,total,paid){
 
 }
 
+function finalsubmitot(ipd_number,total,paid){
+    total = parseInt(total);
+    paid = parseInt(paid);
+    amount = total+paid;
+    date = new Date();
+    date = formatDate((date));
+    console.log(total);
+    if($('#amount_paid').val() == total){
+        $.ajax({
+            url: "../finalsubmitot",
+            type: "post",
+            data: {
+                'ipd_number':ipd_number,
+                'amount':amount,
+                'total':total,
+                'date':date
+            },
+            success: function (response) {
+                if(response == 'success'){
+                    alert('bill submitted');
+                   reload();
+                }
+            }
+        });
+
+    }else{
+        if($('#amount_paid').val() < total){
+            alert("Please use partial submit");
+        }else{
+            alert("Please enter a valid value");
+        }
+    }
+
+}
+
+function selectchange(){
+    $('#searchbox').val(''); 
+}
+
+function search_opd(){
+    start =$('#start').val();
+    end =$('#end').val();
+    type = $('#type').val();
+    if(type == -1){
+        alert("Select a status type");
+        return false
+    }
+    x = new Date(start);
+    y = new Date(end);
+    console.log(x);
+    console.log(y);
+    console.log(x<y);
+    if(x>y){
+        alert("Start date cannot be greater than end date");
+        return false
+    }
+    $('#opdreports').load('opdtable?start='+start+'&end='+end+'&type='+type);
+    
+}
+
+function search_ot(){
+    start =$('#start').val();
+    end =$('#end').val();
+    type = $('#type').val();
+    if(type == -1){
+        alert("Select a status type");
+        return false
+    }
+    x = new Date(start);
+    y = new Date(end);
+    console.log(x);
+    console.log(y);
+    console.log(x<y);
+    if(x>y){
+        alert("Start date cannot be greater than end date");
+        return false
+    }
+    $('#otreports').load('ottablereport?start='+start+'&end='+end+'&type='+type);
+    
+}
+
+function search_ipd(){
+    start =$('#start').val();
+    end =$('#end').val();
+    type = $('#type').val();
+    if(type == -1){
+        alert("Select a status type");
+        return false
+    }
+    x = new Date(start);
+    y = new Date(end);
+    console.log(x);
+    console.log(y);
+    console.log(x<y);
+    if(x>y){
+        alert("Start date cannot be greater than end date");
+        return false
+    }
+    $('#ipdreports').load('ipdtable?start='+start+'&end='+end+'&type='+type);
+    
+}
+
+
+function calc_tot(){
+    total =$('#days').val()*$('#amount').val()
+    $('#total').val(total);
+}
+
+function searchby(){
+    type =$('#query-select').val();
+    if(type == -1){
+        alert("Select a search type");
+        return false
+    }
+    value = $('#searchbox').val();
+    //$('#visittable').html('');
+    $('#visittable').load('visittable?type='+type+'&value='+value);
+    
+}
+
 function buttonactive(value){
     if($('#ward').val() == value){
         $("#shiftbtn").attr("disabled", true);
     }else{
         $("#shiftbtn").attr("disabled", false);
     }
+    if($('#ward').val() == value){
+        $('#radiobuttons').addClass('hidden');
+    }else{
+        $('#radiobuttons').removeClass('hidden');
+    }
+} 
+
+function ot_total(){
+    a = 0;
+    b=0;
+    c=0;
+    a = (parseInt($('#ot_charge').val()))?parseInt($('#ot_charge').val()):0;
+    b = (parseInt($('#a_charge').val()))?parseInt($('#a_charge').val()):0;
+    c = (parseInt($('#s_charge').val()))?parseInt($('#s_charge').val()):0;
+    $('#total').val( a + b + c );
+}
+
+function ot_charge(ipd_number){
+    ot_value = $('#ot_charge').val();
+    a_value = $('#a_charge').val();
+    s_value = $('#s_charge').val();
+    a_name = $('#a_name').val();
+    s_name = $('#s_name').val();
+    if((a_value != '' && a_name == '') || (a_value == '' && a_name != '') ||(s_value != '' && s_name == '') || (s_value == '' && s_name != '')){
+        alert("Please fill corresponsing values ");
+        return false;
+    }
+    $.ajax({
+        url: "../addCharges",
+        type: "post",
+        data: {
+            ipd_number,
+            ot_value,
+            a_value,
+            s_value,
+            a_name,
+            s_name
+        },
+        success: function (response) {
+            console.log(response);
+            if(response == 'success'){
+                alert('Charges added');
+               //reload();
+            }
+        }
+    });
+
+}
+
+
+function anysellect(){
+    if($('#anyselect').val() == -1){
+        $("#shiftbtn").attr("disabled", true);
+    }else{
+        $("#shiftbtn").attr("disabled", false);
+    }
+    
+}
+
+function buttonRadio(){
+    var type = $("input[name='type']:checked").val();
+    if(type == 'full' || type == 'half'){
+        $('#anyselect').addClass('hidden');
+        $("#shiftbtn").attr("disabled", false);
+    }else{
+        $("#shiftbtn").attr("disabled", true);
+    }
+    if(type=='any'){
+        $('#anyselect').removeClass('hidden');
+    }
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
 }
 
 
@@ -201,7 +468,8 @@ function finalsubmit(receipt_number,total,paid){
     total = parseInt(total);
     paid = parseInt(paid);
     amount = total+paid;
-    console.log(total);
+    date = new Date();
+    date = formatDate((date));
     if($('#amount_paid').val() == total){
         $.ajax({
             url: "../finalsubmitopd",
@@ -209,7 +477,8 @@ function finalsubmit(receipt_number,total,paid){
             data: {
                 'receipt_number':receipt_number,
                 'amount':amount,
-                'total':total
+                'total':total,
+                'date':date
             },
             success: function (response) {
                 if(response == 'success'){
@@ -254,6 +523,46 @@ function givediscountipd(total,ipd_number){
     
     $.ajax({
         url: "../discountipd",
+        type: "post",
+        data: {
+            'ipd_number':ipd_number,
+            'amount':discount
+        },
+        success: function (response) {
+
+            if(response == 'success'){
+                alert('discount given');
+                reload();
+            }
+        }
+    });
+   // console.log(total);
+}
+
+function givediscountot(total,ipd_number){
+    if($('#discounttype').val()=='1'){
+        if($('#discountamt').val()>0 && $('#discountamt').val()<=100){
+            amt = $('#discountamt').val();
+            discount = Math.ceil(percentage(total,amt));
+         
+        }else{
+            alert("Please enter a valid percent value");
+            return false;
+        }
+    }
+    if($('#discounttype').val()=='2'){
+        total = parseInt(total);
+        if($('#discountamt').val()>0 && $('#discountamt').val()<=total){
+            amt = $('#discountamt').val();
+            discount = Math.ceil(amt);
+        }else{
+            alert("Please enter a valid value");
+            return false;
+        }
+    }
+    
+    $.ajax({
+        url: "../discountot",
         type: "post",
         data: {
             'ipd_number':ipd_number,
@@ -373,13 +682,20 @@ function movetoipd(id){
 }
 
 function shiftpatient(ipd_number){
+    var type = $("input[name='type']:checked").val();
+    any = null;
+    if(type=='any'){
+        any = $('#anyselect').val();
+    }
     ward = $('#ward').val();
     $.ajax({
         url: "../shift",
         type: "post",
         data: {
             'ipd_number':ipd_number,
-            'ward':ward
+            'ward':ward,
+            'type':type,
+            'any':any
         },
         success: function (response) {
             if(response == 'success'){

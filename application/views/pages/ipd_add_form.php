@@ -41,12 +41,14 @@ if (isset($this->session->userdata['logged_in'])) {
                             <form  action="<?=base_url()?>Ipd/ipdAdd" method="post" class="form-horizontal col-sm-8 col-sm-offset-2">
                                 <input class="hidden" value="<?=$patient_data['ipd_number'];?>" name="ipd_number">
                                 <div class="form-group">
-                                    <label class="col-md-1 control-label">IPD Number</label>
+                                    <label class="col-md-2 control-label">IPD Number</label>
                                     <div class="col-md-2">
                                         <input name="receipt_number" type="text" class="form-control" value="<?=$patient_data['ipd_number'];?>" disabled />
                                     </div>
+                                    </div>
+                                    <div class="form-group">
                                     <label class="col-md-2 control-label">Patient Name</label>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <input  type="text" class="form-control" value="<?=$patient_data['patient_name'];?>" disabled />
                                     </div>
                                     <label   class="col-md-2 control-label">Ward <span style="color:red;font-size:15px;">*</span></label>
@@ -57,8 +59,32 @@ if (isset($this->session->userdata['logged_in'])) {
                                             <option <?php if($patient_data['ward'] == 'SICU'){ echo 'selected'; } ?> >SICU</option>
                                             <option <?php if($patient_data['ward'] == 'Special'){ echo 'selected'; } ?> >Special</option>
                                         </select>
+                                        <div id="radiobuttons" class="hidden">
+                                        <div class="radio" onclick="buttonRadio()">
+                                            <label><input type="radio" value='full' name="type">Full Day</label>
+                                            </div>
+                                            <div class="radio" onclick="buttonRadio()">
+                                            <label><input type="radio" value='half' name="type">Half Day</label>
+                                            </div>
+                                            <div class="radio" onclick="buttonRadio()">
+                                            <label><input type="radio" value='any' name="type">Any One Ward</label>
+                                            </div>
+                                        </div>  
                                     </div>
-                                    <button class="btn btn-danger" id="shiftbtn" disabled  onclick="shiftpatient('<?=$patient_data['ipd_number']?>')">Shift</button>
+                                    <div class="col-md-2">
+                                    <a class="btn btn-danger" id="shiftbtn" disabled  onclick="shiftpatient('<?=$patient_data['ipd_number']?>')">Shift</a>
+                                    <br><br>
+                                    <select name="" id="anyselect" onchange="anysellect()" class="form-control hidden">
+                                        <option value="-1">Select</option>
+                                        <option value="current">
+                                           Current Ward 
+                                        </option>
+                                        <option value="shifted">
+                                           Shifted Ward 
+                                        </option>
+                                    </select>
+                                    </div>
+                                    
                                 </div>
                                 
                                 <br>

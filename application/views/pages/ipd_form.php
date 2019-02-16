@@ -61,7 +61,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Patient Name <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
-                                        <input type="text" id="patient_name" name="patient_name" value="<?php if(isset($data)){ echo $data['patient_name']; }?>" class="form-control onlytext" placeholder="Patient Name" />
+                                        <input type="text" oninput="this.value = this.value.toUpperCase()"  id="patient_name" name="patient_name" value="<?php if(isset($data)){ echo $data['patient_name']; }?>" class="form-control onlytext" placeholder="Patient Name" />
                                     </div>
                                     <label class="col-md-2 control-label">Mobile Number <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">

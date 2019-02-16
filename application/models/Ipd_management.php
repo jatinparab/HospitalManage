@@ -18,6 +18,18 @@ Class Ipd_Management extends CI_Model{
     return "SUK".$random;
         
     }
+
+    public function ipdreports($start, $end, $type){
+        if($type == 'paid'){
+           return $this->db->query("SELECT * FROM ipd_done WHERE date BETWEEN str_to_date('$start','%Y-%m-%d') AND str_to_date('$end','%Y-%m-%d')")->result_array();
+        }
+        if($type == 'unpaid'){
+            return $this->db->query("SELECT * FROM ipd_entries WHERE date_of_addmission BETWEEN str_to_date('$start','%Y-%m-%d') AND str_to_date('$end','%Y-%m-%d') AND done = '0'")->result_array();
+        }
+        if($type=='all'){
+            return $this->db->query("SELECT * FROM ipd_entries WHERE date_of_addmission BETWEEN str_to_date('$start','%Y-%m-%d') AND str_to_date('$end','%Y-%m-%d')")->result_array();
+        }
+    }
     public function finalsubmitipd($data){
        // print_r($data);
         if($this->db->insert('ipd_done',$data)){
@@ -37,8 +49,21 @@ Class Ipd_Management extends CI_Model{
     }
 
     public function shift($data){
+        $ipd_number = $data['ipd_number'];
+        $this->db->query("UPDATE ipd_entries SET current_applied=0 WHERE ipd_number='$ipd_number'");
         $this->db->where('ipd_number',$data['ipd_number']);
         $this->db->set('ward',$data['ward']); 
+        if($this->db->update('ipd_entries')){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function shift_current($data){
+        $this->db->where('ipd_number',$data['ipd_number']);
+        $this->db->set('ward',$data['ward']); 
+        $this->db->set('current_applied',1);
         if($this->db->update('ipd_entries')){
             return true;
         }else{
@@ -77,9 +102,111 @@ Class Ipd_Management extends CI_Model{
         $this->db->where('done',1);
         return $this->db->get('ipd_entries')->result_array();
     }
+    public function gettotalpending($ipd_number){
+        $this->db->where('ipd_number',$ipd_number);
+        $result = $this->db->get('ipd_charges')->result_array();
+        $total = 0;
+        foreach($result as $r){
+            $total += $r['total'];
+        }
+        return $total;
+    }
     public function gettotal($ipd_number){
+        $x = $this->db->query("SELECT * FROM ipd_entries WHERE ipd_number='$ipd_number' AND done='0'")->result_array();
+        if(count($x)>0){
+            $amount = $this->gettotalpending($ipd_number);
+            $data['amount'] = $amount;
+            return $data;
+        }
+
         $this->db->where('ipd_number',$ipd_number);
         return $this->db->get('ipd_done')->row_array();
+    }
+
+    public function add_half_daily($ipd_number,$ward_name){
+        if($ward_name == 'General'){
+            $data['type'] = 0;
+        }else if($ward_name == 'ICU'){
+            $data['type'] = 1;
+        }else if($ward_name == 'SICU'){
+            $data['type'] = 2;
+        }else if($ward_name == 'Special'){
+            $data['type'] = 3;
+        }else{
+            $data['type'] = 4;
+        }
+
+        $this->db->where('ipd_number',$ipd_number);
+        $this->db->limit(1);
+        $details = $this->db->get('ipd_entries')->result_array()[0];
+        $this->db->select('*');
+        $this->db->where('name','bed charges - '.$ward_name);
+        $this->db->where('ipd_number',$ipd_number);
+       $x= $this->db->get('ipd_charges')->row_array();
+        if(count($x)==1){
+            $hm = $details['date_of_addmission'];
+             $now = time();
+            $datediff = $now - strtotime($hm);
+     //   return $now;
+             $number = round($datediff / (60 * 60 * 24));
+             if($number == 0 ) {
+                 $number = 1;
+             }
+             $data['ipd_number']=$ipd_number;
+             $data['name'] = 'bed charges - '.$ward_name;
+             $data['amount'] = 200/2;
+             $data['number'] = $number;
+             $data['total'] = $data['amount']*$data['number'];
+             $this->db->where('ipd_number',$ipd_number);
+             $this->db->where('name','bed charges - '.$ward_name);
+             if($this->db->update('ipd_charges',$data)){
+                    $data['amount'] = 400/2;
+                    $data['name'] = 'ward charges - '.$ward_name;
+                 $data['total'] = $data['amount']*$number;
+                 $this->db->where('ipd_number',$ipd_number);
+                 $this->db->where('name','ward charges - '.$ward_name);
+                 if($this->db->update('ipd_charges',$data)){
+                     return true;
+                 }else{
+                     return false;
+                 }
+             }else{
+                 return false;
+             }
+        }else{
+            
+       $y =  $this->db->query("SELECT * FROM ipd_entries WHERE ipd_number='$ipd_number'")->row_array();
+            if($y['current_applied']!= 1){
+
+        $hm = $details['date_of_addmission'];
+        $now = time();
+        $datediff = $now - strtotime($hm);
+     //   return $now;
+        $number = round($datediff / (60 * 60 * 24));
+        
+        if($number == 0 ) {
+            $number = 1;
+        }
+        $data['ipd_number']=$ipd_number;
+        $data['name'] = 'bed charges - '.$ward_name;
+        $data['amount'] = 200/2;
+        $data['number'] = $number;
+        $data['total'] = $data['amount']*$data['number'];
+        if($this->db->insert('ipd_charges',$data)){
+            $data['amount'] = 400/2;
+            $data['name'] = 'ward charges - '.$ward_name;
+            $data['total'] = $data['amount']*$data['number'];
+            if($this->db->insert('ipd_charges',$data)){
+               
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return $this->db->error();
+        }
+    }
+}
     }
     public function add_daily($ipd_number,$ward_name){
         if($ward_name == 'General'){
@@ -100,7 +227,8 @@ Class Ipd_Management extends CI_Model{
         $this->db->select('*');
         $this->db->where('name','bed charges - '.$ward_name);
         $this->db->where('ipd_number',$ipd_number);
-        if($this->db->get('ipd_charges')->row_array()){
+       $x= $this->db->get('ipd_charges')->row_array();
+        if(count($x)==1){
             $hm = $details['date_of_addmission'];
              $now = time();
             $datediff = $now - strtotime($hm);
@@ -131,6 +259,9 @@ Class Ipd_Management extends CI_Model{
                  return false;
              }
         }else{
+            
+       $y =  $this->db->query("SELECT * FROM ipd_entries WHERE ipd_number='$ipd_number'")->row_array();
+            if($y['current_applied']!= 1){
 
         $hm = $details['date_of_addmission'];
         $now = time();
@@ -151,6 +282,7 @@ Class Ipd_Management extends CI_Model{
             $data['name'] = 'ward charges - '.$ward_name;
             $data['total'] = $data['amount']*$data['number'];
             if($this->db->insert('ipd_charges',$data)){
+               
                 return true;
             }else{
                 return false;
@@ -159,6 +291,7 @@ Class Ipd_Management extends CI_Model{
             return $this->db->error();
         }
     }
+}
     }
 
     public function insertdiscount($data){
@@ -204,8 +337,15 @@ Class Ipd_Management extends CI_Model{
         $this->db->limit(1);
         return $this->db->get('ipd_entries')->result_array()[0];
     }
+    public function search_ipd($type,$value){
+        $query = "SELECT * FROM ipd_entries WHERE `$type` LIKE '%$value%' AND done='0'";
+       $data = $this->db->query($query)->result_array();
+       return $data;
+
+    }
 
     public function insertcharge($data){
+        
         return $this->db->insert('ipd_charges',$data);
     }
     public function get_bill_entries($ipd_number){
