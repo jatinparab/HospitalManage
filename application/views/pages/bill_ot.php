@@ -83,7 +83,7 @@ body{
     					<table class="table table-condensed tr-bg">
     						<thead>
                                 <tr>
-                                <td><strong>#</strong></td>
+                                <td><strong>Sr No.</strong></td>
         							<td><strong>Item</strong></td>
         							
         							

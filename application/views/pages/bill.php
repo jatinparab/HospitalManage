@@ -83,10 +83,10 @@ body{
     					<table class="table table-condensed tr-bg">
     						<thead>
                                 <tr>
-                                <td><strong>#</strong></td>
+                                <td><strong>Sr No.</strong></td>
         							<td><strong>Item</strong></td>
         							<td class="text-center"><strong>Price</strong></td>
-        							<td class="text-center"><strong>Quantity</strong></td>
+        							<td class="text-center"><strong>Number</strong></td>
         							<td class="text-right"><strong>Total</strong></td>
                                 </tr>
     						</thead>

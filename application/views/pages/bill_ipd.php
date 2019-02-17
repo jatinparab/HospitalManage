@@ -84,10 +84,10 @@ body{
     					<table  class="table table-condensed tr-bg">
     						<thead>
                                 <tr>
-                                <td><strong>#</strong></td>
+                                <td><strong>Sr No.</strong></td>
         							<td><strong>Item</strong></td>
         							<td class="text-center"><strong>Price</strong></td>
-        							<td class="text-center"><strong>Quantity</strong></td>
+        							<td class="text-center"><strong>Number</strong></td>
         							<td class="text-right"><strong>Total</strong></td>
                                 </tr>
     						</thead>
@@ -170,7 +170,7 @@ body{
                                 <td><?=$i?></td>
             						<td><?=$entry['name']?> </td>
     								<td class="text-center">Rs. <?=$entry['amount']?></td>
-    								<td class="text-center"><?=$entry['number']?></td>
+    								<td class="text-center"><?php if($entry['number'] == -1 ){ echo '1/2'; }else{ echo $entry['number'];}?></td>
     								<td class="text-right">Rs. <?=$entry['total']?></td>
     							</tr>
                   <?php $i++; }

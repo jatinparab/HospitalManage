@@ -75,7 +75,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                         <td><?=$value?></td>
                                     <?php } } ?>
                                     <?php  ?>
-                                    <td><a href="<?=base_url()?>ipd/edit/<?=$entry['ipd_number']?>" class="btn btn-info btn-sm" style="font-size:6px;color:#fff000000 !important;" ><i class="fa fa-angle-up"></i></a><br></td>
+                                    <td><a href="<?=base_url()?>ipd/edit/<?=$entry['ipd_number']?>" class="btn btn-info" style="font-size:13px;color:#fff000000 !important;" >Manage</a><br></td>
                                     </tr>
                                 <?php }?>        
                                 </tbody>
