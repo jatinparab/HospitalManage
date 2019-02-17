@@ -94,8 +94,8 @@ class Ipd extends CI_Controller {
             
             $x = $this->ipd_management->get_ipd_details_from_id($ipd_number);
             $ward = $data['ward'];
-           echo $ward;
-           echo $ward_name;
+         //  echo $ward;
+           //echo $ward_name;
             $this->ipd_management->add_half_daily($ipd_number,$ward);
             $this->ipd_management->add_half_daily($ipd_number,$ward_name);
             if($this->ipd_management->shift_current($data) == TRUE){
