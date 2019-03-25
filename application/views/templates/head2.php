@@ -1,7 +1,9 @@
 <?php if (isset($this->session->userdata['logged_in'])) {
 	$name = ($this->session->userdata['logged_in']['name']);
-    $username = ($this->session->userdata['logged_in']['username']);
-    header("location: user_main");
+	$username = ($this->session->userdata['logged_in']['username']);
+	$admin = ($this->session->userdata['logged_in']['admin']);
+
+	header("location: user_main");
 
 	} 
 

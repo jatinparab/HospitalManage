@@ -59,7 +59,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                     </div>
                                     <label class="col-md-2 control-label" >Mobile Number <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
-                                        <input type="text" id="contact_number" type="text"  minlength="10" maxlength="10"  name="contact_number" class="form-control onlynumber" placeholder="Mobile Number" />
+                                        <input type="text" id="contact_number" type="text"  minlength="10" maxlength="11"  name="contact_number" class="form-control onlynumber" placeholder="Mobile Number" />
                                     </div>
                                 </div>
                                 

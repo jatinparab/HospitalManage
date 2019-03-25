@@ -65,7 +65,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                     </div>
                                     <label class="col-md-2 control-label">Mobile Number <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
-                                        <input type="text" pattern="\d*" minlength="10" maxlength="10" value="<?php if(isset($data)){ echo $data['contact_number']; }?>" id="contact_number" name="contact_number" class="form-control onlynumber" placeholder="Mobile Number" />
+                                        <input type="text" pattern="\d*" minlength="10" maxlength="11" value="<?php if(isset($data)){ echo $data['contact_number']; }?>" id="contact_number" name="contact_number" class="form-control onlynumber" placeholder="Mobile Number" />
                                     </div>
                                 </div>
                                 

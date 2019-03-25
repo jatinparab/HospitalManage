@@ -71,26 +71,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <input name="opd" type="checkbox" class="check" id="opd">
-                                                </td>
-                                                <td>
-                                                    OPD Charge
-                                                </td>
-                                                <td>
-                                                    <input type="number" class="form-control" oninput="calculate(this)" id="opd_amount" name="opd_amount" disabled/>
-
-                                                </td>
-                                                <td>
-                                                    <input type="number" class="form-control" oninput="ncalculate(this)" id="opd_number" name="opd_number" value="1" disabled/>
-
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" id="opd_total" name="opd_total" readonly="readonly" disabled />
-                                                </td>
-                                                
-                                            </tr>
+                                            
                                             <tr>
                                                 <td>
                                                     <input name="rbs" type="checkbox" class="check" id="rbs">

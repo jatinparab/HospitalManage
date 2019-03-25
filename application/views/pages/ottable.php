@@ -16,7 +16,7 @@
                                    
                                </tr>
                            </thead>
-                           <tbody>
+                           <tbody >
                            <?php foreach($data as $entry){ ?>
                                <tr>
                                <?php foreach($entry as $field => $value){

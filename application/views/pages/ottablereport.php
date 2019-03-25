@@ -70,6 +70,7 @@
                             <h5 >Total Patients: <?=count($data)?></h5>
                             <h5>Total Amount: Rs. <?=$sum?></h5>
                             <a onclick="printotreports()" class="btn btn-warning hideit">Print</a>
+                            <a onclick="fnExcelReport('tabul')" class="btn btn-warning hideit">Excel</a>
                            </div>
         <?php
     }else{

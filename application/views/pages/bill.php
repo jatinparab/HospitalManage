@@ -11,6 +11,8 @@
                 $special = 0;
                 $other =0;
                 $already_paid = 0;
+                $admin = ($this->session->userdata['logged_in']['admin']);
+
 ?>
 
 <?php  $this->load->view('templates/head'); ?>
@@ -29,7 +31,7 @@ body{
             
                <strong style="font-size:30px;">   Sukham  Hospital (Karanjade)</strong>
               <br />
-                  <i>Address :</i> <br> Plot No. 271, Behind Ganesh Temple,<br> Karanjade Panvel,<br> Maharashtra 410206
+                  <br> Plot No. 271, Behind Ganesh Temple,<br> Karanjade Panvel,<br> Maharashtra 410206
               
          </div>
      </div>
@@ -57,7 +59,7 @@ body{
     		<div class="row">
     			<div class="col-xs-6">
     				<address style="font-size:13px;">
-    				<h4>Patient Info:</h4>
+    				<h4>Patient Details:</h4>
               <strong>Name:</strong> <?=$patient_data['patient_name']?>
     					<br><strong>Address:</strong>
     					<?=$patient_data['address']?><br>
@@ -86,7 +88,7 @@ body{
                                 <td><strong>Sr No.</strong></td>
         							<td><strong>Item</strong></td>
         							<td class="text-center"><strong>Price</strong></td>
-        							<td class="text-center"><strong>Number</strong></td>
+        							<td class="text-center"><strong>Number of Days</strong></td>
         							<td class="text-right"><strong>Total</strong></td>
                                 </tr>
     						</thead>
@@ -174,6 +176,7 @@ body{
     				</div>
             <?php if(!$patient_data['done']){ ?>
             <div class="row hideit">
+            <?php if($admin) {?>
             <div class="col-sm-2">
             <strong>
                     Discount?
@@ -197,6 +200,7 @@ body{
                     <option value="2">Flat Off</option>
           </select>
             </div>
+            <?php } ?>
             <div class="col-sm-2 discountdiv" style="display:none">
             <button class="btn btn-primary m-t-20" onclick="givediscount('<?=$sum?>','<?=$patient_data['receipt_number']?>')" >Give Discount</button>
             </div>

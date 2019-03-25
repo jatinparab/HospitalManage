@@ -11,6 +11,8 @@
                 $special = 0;
                 $other =0;
                 $already_paid = 0;
+                $admin = ($this->session->userdata['logged_in']['admin']);
+
 ?>
 
 <?php  $this->load->view('templates/head'); ?>
@@ -29,7 +31,7 @@ body{
             
                <strong style="font-size:30px;">   Sukham  Hospital (Karanjade)</strong>
               <br />
-                  <i>Address :</i> <br> Plot No. 271, Behind Ganesh Temple,<br> Karanjade Panvel,<br> Maharashtra 410206
+                 <br> Plot No. 271, Behind Ganesh Temple,<br> Karanjade Panvel,<br> Maharashtra 410206
               
          </div>
      </div>
@@ -57,7 +59,7 @@ body{
     		<div class="row">
     			<div class="col-xs-6">
     				<address style="font-size:13px;">
-    				<h4>Patient Info:</h4>
+    				<h4>Patient Details:</h4>
               <strong>Name:</strong> <?=$patient_data['name']?>
     				
     					<br>
@@ -173,6 +175,7 @@ body{
     				</div>
             <?php if(!$patient_data['done']){ ?>
             <div class="row hideit">
+            <?php if($admin) {?>
             <div class="col-sm-2">
             <strong>
                     Discount?
@@ -199,6 +202,7 @@ body{
             <div class="col-sm-2 discountdiv" style="display:none">
             <button class="btn btn-primary m-t-20" onclick="givediscountot('<?=$sum?>','<?=$patient_data['ipd_number']?>')" >Give Discount</button>
             </div>
+            <?php } ?>
             <div class="col-sm-2 pull-right">
             <label for="amount_paid" class="text-right">Amount Paid</label>
             <input type="text" id="amount_paid" class="form-control pull-right onlynumber" >

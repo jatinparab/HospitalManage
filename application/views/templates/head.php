@@ -1,8 +1,10 @@
 <?php if (isset($this->session->userdata['logged_in'])) {
 	$name = ($this->session->userdata['logged_in']['name']);
 	$username = ($this->session->userdata['logged_in']['username']);
-	} else if(0) {
-	header("location: logn");
+	$admin = ($this->session->userdata['logged_in']['admin']);
+
+	} else {
+	header("location: login");
 	}
 	
   //  $latest_entry = $this->opd_management->getlatestopd();

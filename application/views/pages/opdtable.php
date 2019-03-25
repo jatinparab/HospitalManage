@@ -10,7 +10,7 @@
         <h5>To: <?=$_GET['end']?></h5>
         <h5>Type: <?=ucfirst($_GET['type'])?></h5>
         </div>
-        <table   class="table table-striped table-bordered">
+        <table id="tabul"   class="table table-striped table-bordered">
  <thead>
                                
                                <tr>
@@ -61,6 +61,7 @@
                             <h5 >Total Patients: <?=count($data)?></h5>
                             <h5>Total Amount: Rs. <?=$sum?></h5>
                             <a onclick="printopdreports()" class="btn btn-warning hideit">Print</a>
+                            <a onclick="fnExcelReport('tabul')" class="btn btn-warning hideit">Excel</a>
                            </div>
         <?php
     }else{
