@@ -77,12 +77,12 @@ if (isset($this->session->userdata['logged_in'])) {
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Age <span style="color:red;font-size:15px;">*</span></label>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2" style="width:130px;">
                                         <input type="text" pattern="\d*" maxlength="3" id="age" name="age" value="<?php if(isset($data)){ echo $data['age']; }?>" class="form-control onlynumber" placeholder="Age" />
                                     </div>
                                     <label class="col-md-1 control-label">Sex <span style="color:red;font-size:15px;">*</span></label>
-                                    <div class="col-md-2">
-                                        <select id="sex" name="sex" class="form-control">
+                                    <div class="col-md-1">
+                                        <select id="sex" name="sex" style="width:120px;" class="form-control">
                                         <option value="-1">Select</option>
                                             <option <?php if(isset($data)){ if($data['sex'] == 'Male'){ echo 'selected'; } }?> value="Male">Male</option>
                                             <option <?php if(isset($data)){ if($data['sex'] == 'Female'){ echo 'selected'; } }?> value="Female">Female</option>

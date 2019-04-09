@@ -72,7 +72,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Age <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-1">
-                                        <input type="text" maxlength="3" id="age"  class="form-control onlynumber" name="age" placeholder="Default input" />
+                                        <input type="text" style="width:130px;" maxlength="3" id="age"  class="form-control onlynumber" name="age" placeholder="Default input" />
                                     </div>
                                     <label  class="col-md-2 control-label">Sex <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
