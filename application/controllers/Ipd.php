@@ -29,19 +29,7 @@ class Ipd extends CI_Controller {
             $data['date_of_addmission'] = date('Y-m-d', strtotime($date));
             //print_r($data);
             if($this->ipd_management->ipdsubmit($data) == TRUE){
-                // redirect('/ipd/deposit/'."$ipd_number");
-                $data3 = array();
-                $data3['ipd_number'] = $ipd_number;
-                $data3['amount'] = 500;
-                $data3['name'] = 'IPD Charge';
-                $data3['number'] = 1;
-                $data3['total'] = $data3['amount'];
-                $data3['type'] = 4;
-                if(!$this->ipd_management->insertcharge($data3)){
-                    die($this->ipd_management->insertcharge($data3));
-                }
             redirect('/ipd_details');
-                redirect('../ipd_details');
             }else{
                 die($this->ipd_management->ipdsubmit($data));
             }

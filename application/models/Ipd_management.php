@@ -214,6 +214,7 @@ Class Ipd_Management extends CI_Model{
 }
     }
     public function add_daily($ipd_number,$ward_name){
+        
         if($ward_name == 'General'){
             $data['type'] = 0;
         }else if($ward_name == 'ICU'){
@@ -227,6 +228,7 @@ Class Ipd_Management extends CI_Model{
         }
         $y =  $this->db->query("SELECT * FROM ipd_entries WHERE ipd_number='$ipd_number'")->row_array();
         if($y['current_applied']!= 1){
+            
         $this->db->where('ipd_number',$ipd_number);
         $this->db->limit(1);
         $details = $this->db->get('ipd_entries')->result_array()[0];
@@ -257,6 +259,14 @@ Class Ipd_Management extends CI_Model{
                  $this->db->where('ipd_number',$ipd_number);
                  $this->db->where('name','ward charges - '.$ward_name);
                  if($this->db->update('ipd_charges',$data)){
+                    $data['ipd_number']=$ipd_number;
+                    $data['name'] = 'IPD charges';
+                    $data['amount'] = 500;
+                    $data['number'] = $number;
+                    $data['total'] = $data['amount']*$data['number'];
+                    $this->db->where('ipd_number',$ipd_number);
+                     $this->db->where('name','IPD charges');
+                    $this->db->update('ipd_charges',$data);
                      return true;
                  }else{
                      return false;
@@ -265,7 +275,7 @@ Class Ipd_Management extends CI_Model{
                  return false;
              }
             }
-        }else{
+        else{
             
        $y =  $this->db->query("SELECT * FROM ipd_entries WHERE ipd_number='$ipd_number'")->row_array();
             if($y['current_applied']!= 1){
@@ -289,7 +299,12 @@ Class Ipd_Management extends CI_Model{
             $data['name'] = 'ward charges - '.$ward_name;
             $data['total'] = $data['amount']*$data['number'];
             if($this->db->insert('ipd_charges',$data)){
-               
+                $data['ipd_number']=$ipd_number;
+                $data['name'] = 'IPD charges';
+                $data['amount'] = 500;
+                $data['number'] = 1;
+                $data['total'] = $data['amount']*$data['number'];
+                $this->db->insert('ipd_charges',$data);
                 return true;
             }else{
                 return false;
@@ -298,6 +313,7 @@ Class Ipd_Management extends CI_Model{
             return $this->db->error();
         }
     }
+}
 }
     }
 
