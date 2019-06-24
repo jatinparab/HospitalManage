@@ -65,7 +65,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                     
                                 <td><a href="<?=base_url()?>ipd/deposit/<?=$entry['ipd_number']?>" class="btn btn-info"style="font-size:6px;color:#fff000000 !important;" ><i class="fa fa-angle-up"></i></a></td>
                                     </tr>
-                                <? }?>
+                                <?php }?>
 
                                 
                                 </tbody>

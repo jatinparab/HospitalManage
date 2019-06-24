@@ -103,7 +103,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                     
                                     <td><a href="<?=base_url()?>visiting?ipd_number=<?=$entry['ipd_number']?>" class="btn btn-info" >Add Charge</a></td>
                                     </tr>
-                                <? }?>
+                                <?php }?>
 
                                 
                                 </tbody>

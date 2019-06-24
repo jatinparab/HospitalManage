@@ -1,5 +1,13 @@
 
 <?php
+$contact_number=array(
+    'name'=>'contact_number',
+    'class' => 'form-control onlynumber',
+    'type' => 'text',
+    'id' => 'contact_number',
+    'placeholder' => 'Mobile Number',
+    'value'=> set_value('contact_number'),
+);
 	//$this -> load -> session();
 	//session_start();
 //print_r($this->session->userdata['logged_in']);
@@ -36,6 +44,20 @@ if (isset($this->session->userdata['logged_in'])) {
 			        <!-- begin panel -->
                     <div class="pan el panel-inverse" data-sortable-id="form-stuff-1">
                         <div class="pan el-heading">
+                        <?php
+                            if($this->session->flashdata('Incorrectcontact')){
+                        ?>
+
+                        <div class="alert alert-dismissible alert-danger">
+                            <div class="flash-data">
+                                <button type="button" class="close" data-dismiss="alert">X</button>
+                                <?= $this->session->flashdata('Incorrectcontact');?>
+                            </div>
+                        <div class="clearfix"></div>
+                        </div>
+                        <?php
+                        }
+                        ?>
                             
                             <h4 class="panel-title">OPD Form</h4>
                         </div>
@@ -57,9 +79,9 @@ if (isset($this->session->userdata['logged_in'])) {
                                     <div class="col-md-2">
                                         <input type="text" id="patient_name" oninput="this.value = this.value.toUpperCase()"  name="patient_name" class="form-control onlytext" placeholder="Patient Name" />
                                     </div>
-                                    <label class="col-md-2 control-label" >Mobile Number <span style="color:red;font-size:15px;">*</span></label>
+                                    <label class="col-md-1 control-label" >Mobile No. <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
-                                        <input type="text" id="contact_number" type="text"  minlength="10" maxlength="11"  name="contact_number" class="form-control onlynumber" placeholder="Mobile Number" />
+                                    <?=form_input($contact_number);?>
                                     </div>
                                 </div>
                                 

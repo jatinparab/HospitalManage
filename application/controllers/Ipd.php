@@ -19,8 +19,14 @@ class Ipd extends CI_Controller {
     }
 
         public function formSubmit()
-        {
-            $data = $this->input->post();
+        {   
+            $this->form_validation->set_rules('contact_number', 'Contact Number ', 'required|regex_match[/(7|8|9)\d{9}/]'); 
+            if($this->form_validation->run()===FALSE){
+                $this->session->set_flashdata('Incorrect contact', 'Mobile number is Incorrect');
+                redirect('/ipd_form');
+            }           
+            else{
+                $data = $this->input->post();
             //print_r($data);
             $date = $data['date_of_addmission'];
             $ipd_number = $data['ipd_number'];
@@ -32,7 +38,9 @@ class Ipd extends CI_Controller {
             redirect('/ipd_details');
             }else{
                 die($this->ipd_management->ipdsubmit($data));
+            } 
             }
+        
         }
         public function finalsubmitipd(){
             $data = $this->input->post();

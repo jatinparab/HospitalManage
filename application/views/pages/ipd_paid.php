@@ -51,10 +51,11 @@ if (isset($this->session->userdata['logged_in'])) {
                                         <th>Date Of Admission</th>
                                         <th>Date Of Discharge</th>
                                         <th>Bill Amount</th>
-                                        
+                                       
                                         
                                         
                                         <th class="noExport">View Bill</th>
+                                        <th class="noExport">Edit Bill</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -78,8 +79,9 @@ if (isset($this->session->userdata['logged_in'])) {
                                 } ?>
                                     <td>Rs. <?=$total['amount']?></td>
                                     <td><a href="<?=base_url()?>ipd/billing/<?=$entry['ipd_number']?>" class="btn btn-info" style="font-size:6px;color:#fff000000 !important;" ><i class="fa fa-angle-up"></i></a></td>
+                                    <td><a href="<?=base_url()?>ipd/editing/<?=$entry['ipd_number']?>" class="btn btn-info" style="font-size:6px;color:#fff000000 !important;" ><i class="fa fa-angle-up"></i></a></td>
                                     </tr>
-                                <? }?>
+                                <?php }?>
 
                                 
                                 </tbody>

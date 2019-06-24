@@ -87,25 +87,26 @@ body{
     						<thead>
                                 <tr>
                                 <td><strong>Sr No.</strong></td>
-        							<td><strong>Item</strong></td>
-        							<td class="text-center"><strong>Price</strong></td>
-        							<td class="text-center"><strong>Number of Days</strong></td>
+        							<td><strong>Procedure/Test</strong></td>
+        							<td class="text-center"><strong>Amount</strong></td>
+        							<td class="text-center"><strong>Number of Test</strong></td>
         							<td class="text-right"><strong>Total</strong></td>
                                 </tr>
     						</thead>
     						<tbody>
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
     						
-                  <?php $i=1; $sum=0;
-                  foreach($visiting as $entry){ ?>
+                  <?php 
+                  $i=1; $sum=0;$visit_charge=0;
+                  foreach($visiting as $visit){ ?>
                     <tr>
                                  <td><?=$i?></td>
-                         <td>Visiting - <?=$entry['doctor_name']?> </td>
-                     <td class="text-center">Rs. <?=$entry['amount']?></td>
-                     <td class="text-center"><?=$entry['days']?></td>
-                     <td class="text-right">Rs. <?=$entry['amount']*$entry['days']?></td>
+                         <td>Visiting - <?=$visit['doctor_name']?> </td>
+                     <td class="text-center">Rs. <?=$visit['amount']?></td>
+                     <td class="text-center"><?=$visit['days']?></td>
+                     <td class="text-right">Rs. <?=$visit['amount']*$visit['days']?></td>
                    </tr>
- 
+                   <?php $visit_charge+=$visit['amount']*$visit['days'];?>
                  <?php $i++; } 
                   
                   foreach($entries as $entry){ 
@@ -179,15 +180,18 @@ body{
                 
                 
                 }?>
+                  <?php if(isset($visit_charge)){
+                    $subtotal=$sum+$visit_charge;}
+                    else {$subtotal=$sum;} ?>
     							<tr>
     								<td class="thick-line"></td>
     								<td class="thick-line"></td>
                     <td class="thick-line"></td>
     								<td class="thick-line text-center"><strong>Subtotal</strong></td>
-    								<td class="thick-line text-right">Rs. <?=$sum?></td>
+    								<td class="thick-line text-right">Rs. <?=$subtotal?></td>
     							</tr>
                   <?php if(isset($deposit)){
-                    $sum = $sum + $deposit['total']; ?>
+                    $subtotal = $subtotal + $deposit['total']; ?>
     							<tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>
@@ -197,7 +201,7 @@ body{
     							</tr>
                   <?php } ?>
                   <?php if(isset($discount)){
-                    $sum = $sum - $discount['total']; ?>
+                    $subtotal = $subtotal - $discount['total']; ?>
     							<tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>
@@ -208,7 +212,7 @@ body{
                   <?php }if(!$patient_data['done']){ ?>
                   
                   <?php if($already_paid > 0){
-                    $sum = $sum - $already_paid; ?>
+                    $subtotal = $subtotal - $already_paid; ?>
     							<tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>
@@ -223,7 +227,7 @@ body{
     								<td class="no-line"></td>
                     <td class="no-line"></td>
     								<td class="no-line text-center"><strong>Pending</strong></td>
-    								<td class="no-line text-right">Rs. <?=$sum?></td>
+    								<td class="no-line text-right">Rs. <?=$subtotal?></td>
     							</tr>
                   <?php }else{ ?>
                     <tr>
@@ -231,7 +235,7 @@ body{
     								<td class="no-line"></td>
                     <td class="no-line"></td>
     								<td class="no-line text-center"><strong>Paid</strong></td>
-    								<td class="no-line text-right">Rs. <?=$sum?></td>
+    								<td class="no-line text-right">Rs. <?=$subtotal?></td>
     							</tr>
                   
                   <?php } ?>
@@ -267,7 +271,7 @@ body{
             </div>
             <?php } ?>
             <div class="col-sm-2 discountdiv" style="display:none">
-            <button class="btn btn-primary m-t-20" onclick="givediscountipd('<?=$sum?>','<?=$patient_data['ipd_number']?>')" >Give Discount</button>
+            <button class="btn btn-primary m-t-20" onclick="givediscountipd('<?=$subtotal?>','<?=$patient_data['ipd_number']?>')" >Give Discount</button>
             </div>
             <div class="col-sm-2 pull-right">
             <label for="amount_paid" class="text-right">Amount Paid</label>
@@ -276,8 +280,8 @@ body{
             </div>
             <br>
         <div class="row hideit" style="margin:5px;">
-        <button onclick="finalsubmitipd('<?=$patient_data['ipd_number']?>','<?=$sum?>','<?=$already_paid?>')" class="btn btn-warning pull-right m-l-5 ">Submit</button>
-            <button onclick="partialsubmitipd('<?=$patient_data['ipd_number']?>','<?=$sum?>')" class="btn btn-primary pull-right m-l-5 ">Partial Submit</button>
+        <button onclick="finalsubmitipd('<?=$patient_data['ipd_number']?>','<?=$subtotal?>','<?=$already_paid?>')" class="btn btn-warning pull-right m-l-5 ">Submit</button>
+            <button onclick="partialsubmitipd('<?=$patient_data['ipd_number']?>','<?=$subtotal?>')" class="btn btn-primary pull-right m-l-5 ">Partial Submit</button>
             <button onclick="printIt()" class="btn btn-danger pull-right m-l-5 ">Print</button>
         </div>
          

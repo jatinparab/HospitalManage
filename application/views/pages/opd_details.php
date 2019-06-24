@@ -69,7 +69,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                     <?php  ?>
                                     <td><a href="<?=base_url()?>opd/edit/<?=$entry['id']?>" class="btn btn-info" style="font-size:13px;color:#fff000000 !important;" >Manage</a></td>
                                     </tr>
-                                <? }?>
+                                <?php }?>
                                 </tbody>
                             </table>
                         </div>

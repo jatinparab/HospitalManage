@@ -103,7 +103,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                     
                                     <td><a href="<?=base_url()?>operation?ipd_number=<?=$entry['ipd_number']?>" class="btn btn-info" >Fill</a></td>
                                     </tr>
-                                <? }?>
+                                <?php }?>
 
                                 
                                 </tbody>

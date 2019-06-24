@@ -69,7 +69,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                     
                                     <td><a href="<?=base_url()?>ipd/billing/<?=$entry['ipd_number']?>" class="btn btn-info" >Generate Bill</a></td>
                                     </tr>
-                                <? }?>
+                                <?php }?>
 
                                 
                                 </tbody>

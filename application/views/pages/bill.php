@@ -86,9 +86,9 @@ body{
     						<thead>
                                 <tr>
                                 <td><strong>Sr No.</strong></td>
-        							<td><strong>Item</strong></td>
-        							<td class="text-center"><strong>Price</strong></td>
-        							<td class="text-center"><strong>Number of Days</strong></td>
+        							<td><strong>Procedure/Test</strong></td>
+        							<td class="text-center"><strong>Amount</strong></td>
+        							<td class="text-center"><strong>Number of Test</strong></td>
         							<td class="text-right"><strong>Total</strong></td>
                                 </tr>
     						</thead>

@@ -19,7 +19,12 @@ class Opd extends CI_Controller {
     }
 
         public function formSubmit()
-        {
+        {   $this->form_validation->set_rules('contact_number', 'Contact Number ', 'required|regex_match[/(7|8|9)\d{9}/]'); 
+        if($this->form_validation->run()===FALSE){
+            $this->session->set_flashdata('Incorrectcontact', 'Mobile number is Incorrect');
+            redirect('/opd_form');
+        }           
+        else{
             $data = $this->input->post();
             $data['date'] = date('Y-m-d');
             if($this->opd_management->opdsubmit($data) == TRUE){
@@ -28,6 +33,7 @@ class Opd extends CI_Controller {
                 die($this->opd_management->opdsubmit($data));
             }
         }
+        }      
 
         public function discount(){
             $data = $this->input->post();

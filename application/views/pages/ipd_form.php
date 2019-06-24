@@ -18,9 +18,18 @@ if (isset($this->session->userdata['logged_in'])) {
         //print_r($data);
 
     }
+    $contact_number=array(
+        'name'=>'contact_number',
+        'class' => 'form-control onlynumber',
+        'type' => 'text',
+        'id' => 'contact_number',
+        'placeholder' => 'Mobile Number',
+        'value'=> set_value('contact_number'),
+    );
     
 ?>
 	
+
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
 		<!-- begin #header -->
@@ -34,7 +43,7 @@ if (isset($this->session->userdata['logged_in'])) {
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
 			<!-- end page-header -->
-			
+            
 			<!-- begin row -->
 			<div class="row">
                 <!-- begin col-6 -->
@@ -42,6 +51,20 @@ if (isset($this->session->userdata['logged_in'])) {
 			        <!-- begin panel -->
                     <div class="pan el panel-inverse" data-sortable-id="form-stuff-1">
                         <div class="pan el-heading">
+                        <?php
+                            if($this->session->flashdata('Incorrectcontact')){
+                        ?>
+
+                        <div class="alert alert-dismissible alert-danger">
+                            <div class="flash-data">
+                                <button type="button" class="close" data-dismiss="alert">X</button>
+                                <?= $this->session->flashdata('Incorrectcontact');?>
+                            </div>
+                        <div class="clearfix"></div>
+                        </div>
+                        <?php
+                        }
+                        ?>
                            
                             <h4 class="panel-title">IPD Form</h4>
                         </div>
@@ -54,29 +77,30 @@ if (isset($this->session->userdata['logged_in'])) {
                                     </div>
                                     <label class="col-md-2 col-md-offset-1 control-label">IPD Number</label>
                                     <div class="col-md-2">
+                                    <?php date_default_timezone_set('Asia/Kolkata');?>
                                         <input type="text" id="ipd_number" name="ipd_number" value="<?=$ipd_number?>" class="form-control" placeholder="KOJF34" readonly="readonly"  />
                                     </div>
                                 </div>
                                
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Patient Name <span style="color:red;font-size:15px;">*</span></label>
-                                    <div class="col-md-2">
+                                    <label class="col-md-2 control-label">Patient Name <span style="color:red;font-size:15px;">*</span></label>
+                                    <div class="col-md-3">
                                         <input type="text" oninput="this.value = this.value.toUpperCase()"  id="patient_name" name="patient_name" value="<?php if(isset($data)){ echo $data['patient_name']; }?>" class="form-control onlytext" placeholder="Patient Name" />
                                     </div>
                                     <label class="col-md-2 control-label">Mobile Number <span style="color:red;font-size:15px;">*</span></label>
-                                    <div class="col-md-2">
-                                        <input type="text" pattern="\d*" minlength="10" maxlength="11" value="<?php if(isset($data)){ echo $data['contact_number']; }?>" id="contact_number" name="contact_number" class="form-control onlynumber" placeholder="Mobile Number" />
-                                    </div>
+                                    <div class="col-md-2">                                   
+                                     <?=form_input($contact_number);?>
+                                     </div>                
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Address</label>
-                                    <div class="col-md-6">
+                                    <label class="col-md-2 control-label">Address</label>
+                                    <div class="col-md-7">
                                         <input style="height:40px;" id="address" value="<?php if(isset($data)){ echo $data['address']; }?>" class="form-control" name="address" placeholder="Address">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Age <span style="color:red;font-size:15px;">*</span></label>
+                                    <label class="col-md-2 control-label">Age <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2" style="width:130px;">
                                         <input type="text" pattern="\d*" maxlength="3" id="age" name="age" value="<?php if(isset($data)){ echo $data['age']; }?>" class="form-control onlynumber" placeholder="Age" />
                                     </div>
@@ -90,7 +114,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                             
                                         </select>
                                     </div>
-                                    <label class="col-md-1 control-label">Date <span style="color:red;font-size:15px;">*</span></label>
+                                    <label class="col-md-2 control-label">Date of Admission <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
                                         <input  name="date_of_addmission" type="date" max="<?php
                                         date_default_timezone_set('Asia/Kolkata');
@@ -100,11 +124,11 @@ if (isset($this->session->userdata['logged_in'])) {
                                 
                                 
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Prefered Doctor <span style="color:red;font-size:15px;">*</span></label>
+                                    <label class="col-md-2 control-label">Prefered Doctor <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
-                                        <input type="text" id="prefered_doctor" value="Dr. " name="prefered_doctor" class="form-control onlytext" placeholder="Dr." />
+                                        <input type="text" id="prefered_doctor" value="Dr.Santosh Sudam Jadhav " name="prefered_doctor" class="form-control onlytext" placeholder="Dr." />
                                     </div>
-                                    <label class="col-md-2 control-label">Ward <span style="color:red;font-size:15px;">*</span></label>
+                                    <label class="col-md-3 control-label">Ward <span style="color:red;font-size:15px;">*</span></label>
 									
                                     <div class="col-md-2">
                                         <select name="ward" id="ward" class="form-control">
@@ -143,7 +167,6 @@ if (isset($this->session->userdata['logged_in'])) {
             
             <!-- end row -->
 		</div>
-
         <!-- end theme-panel -->
 		
 		<!-- begin scroll to top btn -->
