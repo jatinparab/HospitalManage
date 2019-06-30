@@ -1,6 +1,8 @@
 <?php 
 
 Class Ipd_Management extends CI_Model{
+
+
     public function getlatestipdnumber(){
         $this->db->select("ipd_number");
         $x= $this->db->get('ipd_entries')->result_array();
@@ -154,7 +156,19 @@ Class Ipd_Management extends CI_Model{
              }
              $data['ipd_number']=$ipd_number;
              $data['name'] = 'bed charges - '.$ward_name;
-             $data['amount'] = 200/2;
+             if($ward_name=='General'){
+                $data['amount'] = 700/2;
+                }
+                elseif($ward_name=='ICU'){
+                   $data['amount'] = 2600/2;
+                }
+                elseif($ward_name=='Special'){
+                   $data['amount'] = 1600/2;
+                }
+                else
+                {
+                   $data['amount'] = 200/2;
+                }
              $data['number'] = $number;
              $data['total'] = $data['amount']*$number;
              $data['number'] = -1;
@@ -191,7 +205,19 @@ Class Ipd_Management extends CI_Model{
         }
         $data['ipd_number']=$ipd_number;
         $data['name'] = 'bed charges - '.$ward_name;
-        $data['amount'] = 200/2;
+        if($ward_name=='General'){
+            $data['amount'] = 700/2;
+            }
+            elseif($ward_name=='ICU'){
+               $data['amount'] = 2600/2;
+            }
+            elseif($ward_name=='Special'){
+               $data['amount'] = 1600/2;
+            }
+            else
+            {
+               $data['amount'] = 200/2;
+            }
         $data['number'] = $number;
         $data['total'] = $data['amount']*$data['number'];
         $data['number'] = -1;
@@ -247,7 +273,19 @@ Class Ipd_Management extends CI_Model{
              }
              $data['ipd_number']=$ipd_number;
              $data['name'] = 'bed charges - '.$ward_name;
-             $data['amount'] = 200;
+             if($ward_name=='General'){
+             $data['amount'] = 700;
+             }
+             elseif($ward_name=='ICU'){
+                $data['amount'] = 2600;
+             }
+             elseif($ward_name=='Special'){
+                $data['amount'] = 1600;
+             }
+             else
+             {
+                $data['amount'] = 200;
+             }
              $data['number'] = $number;
              $data['total'] = $data['amount']*$data['number'];
              $this->db->where('ipd_number',$ipd_number);
@@ -267,10 +305,74 @@ Class Ipd_Management extends CI_Model{
                     $this->db->where('ipd_number',$ipd_number);
                      $this->db->where('name','IPD charges');
                     $this->db->update('ipd_charges',$data);
-                     return true;
+                    ////////////
+                    $data['ipd_number']=$ipd_number;
+                    $data['name'] = 'Doctor Charges';
+                    if($ward_name=='General'){
+                        $data['amount'] = 900;
+                        }
+                        elseif($ward_name=='ICU'){
+                           $data['amount'] = 2000;
+                        }
+                        elseif($ward_name=='Special'){
+                           $data['amount'] = 1400;
+                        }
+                        else
+                        {
+                           $data['amount'] = 200;
+                        }
+                    $data['number'] = $number;
+                    $data['total'] = $data['amount']*$data['number'];
+                    $this->db->where('ipd_number',$ipd_number);
+                     $this->db->where('name','Doctor Charges');
+                    $this->db->update('ipd_charges',$data);
+                    ///////////////
+                    $data['ipd_number']=$ipd_number;
+                    $data['name'] = 'Nursing Charges';
+                    if($ward_name=='General'){
+                        $data['amount'] = 400;
+                    }
+                    elseif($ward_name=='ICU'){
+                       $data['amount'] = 800;
+                    }
+                    elseif($ward_name=='Special'){
+                       $data['amount'] = 500;
+                    }
+                    else
+                    {
+                       $data['amount'] = 200;
+                    }
+                    $data['number'] = $number;
+                    $data['total'] = $data['amount']*$data['number'];
+                    $this->db->where('ipd_number',$ipd_number);
+                     $this->db->where('name','Nursing Charges');
+                    $this->db->update('ipd_charges',$data);
+                    /////////////
+                    if($ward_name=='ICU'){
+                        $data['ipd_number']=$ipd_number;
+                    $data['name'] = 'Monitor Charges';                   
+                    $data['amount'] = 400;                   
+                    $data['number'] = $number;
+                    $data['total'] = $data['amount']*$data['number'];
+                    $this->db->where('ipd_number',$ipd_number);
+                     $this->db->where('name','Monitor Charges');
+                    $this->db->update('ipd_charges',$data);
+                    ////////
+                    $data['ipd_number']=$ipd_number;
+                    $data['name'] = 'Pulse Oximeter';                   
+                    $data['amount'] = 400;                   
+                    $data['number'] = $number;
+                    $data['total'] = $data['amount']*$data['number'];
+                    $this->db->where('ipd_number',$ipd_number);
+                     $this->db->where('name','Pulse Oximeter');
+                    $this->db->update('ipd_charges',$data);
+
+                    }
+                    return true;
+                     
                  }else{
                      return false;
-                 }
+                 }           
              }else{
                  return false;
              }
@@ -291,7 +393,19 @@ Class Ipd_Management extends CI_Model{
         }
         $data['ipd_number']=$ipd_number;
         $data['name'] = 'bed charges - '.$ward_name;
-        $data['amount'] = 200;
+        if($ward_name=='General'){
+            $data['amount'] = 700;
+            }
+            elseif($ward_name=='ICU'){
+               $data['amount'] = 2600;
+            }
+            elseif($ward_name=='Special'){
+               $data['amount'] = 1600;
+            }
+            else
+            {
+               $data['amount'] = 200;
+            }
         $data['number'] = $number;
         $data['total'] = $data['amount']*$data['number'];
         if($this->db->insert('ipd_charges',$data)){
@@ -305,10 +419,60 @@ Class Ipd_Management extends CI_Model{
                 $data['number'] = 1;
                 $data['total'] = $data['amount']*$data['number'];
                 $this->db->insert('ipd_charges',$data);
+                $data['ipd_number']=$ipd_number;
+                $data['name'] = 'Doctor Charges';
+                if($ward_name=='General'){
+                    $data['amount'] = 900;
+                    }
+                    elseif($ward_name=='ICU'){
+                       $data['amount'] = 2000;
+                    }
+                    elseif($ward_name=='Special'){
+                       $data['amount'] = 1400;
+                    }
+                    else
+                    {
+                       $data['amount'] = 200;
+                    }
+                $data['number'] = 1;
+                $data['total'] = $data['amount']*$data['number'];
+                $this->db->insert('ipd_charges',$data);
+                $data['ipd_number']=$ipd_number;
+                $data['name'] = 'Nursing Charges';
+                if($ward_name=='General'){
+                    $data['amount'] = 400;
+                    }
+                    elseif($ward_name=='ICU'){
+                       $data['amount'] = 800;
+                    }
+                    elseif($ward_name=='Special'){
+                       $data['amount'] = 500;
+                    }
+                    else
+                    {
+                       $data['amount'] = 200;
+                    }
+                $data['number'] = 1;
+                $data['total'] = $data['amount']*$data['number'];
+                $this->db->insert('ipd_charges',$data);
+                if($ward_name=='ICU'){
+                $data['ipd_number']=$ipd_number;
+                $data['name'] = 'Monitor Charges';               
+                $data['amount'] = 600;                   
+                $data['number'] = 1;
+                $data['total'] = $data['amount']*$data['number'];
+                $this->db->insert('ipd_charges',$data);
+                $data['ipd_number']=$ipd_number;
+                $data['name'] = 'Pulse Oximeter';               
+                $data['amount'] = 400;                   
+                $data['number'] = 1;
+                $data['total'] = $data['amount']*$data['number'];
+                $this->db->insert('ipd_charges',$data);
+                }
                 return true;
             }else{
                 return false;
-            }
+            }                                       
         }else{
             return $this->db->error();
         }
@@ -396,6 +560,9 @@ Class Ipd_Management extends CI_Model{
         } else {
         return false;
         }
+    }
+    public function editipd($data,$id){
+        
     }
 }
 

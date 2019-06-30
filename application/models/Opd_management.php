@@ -4,9 +4,9 @@ Class Opd_Management extends CI_Model{
     public function opdsubmit($data) {
         $data2['receipt_number'] = $data['receipt_number'];
         $data2['name'] = 'Opd Charges';
-        $data2['amount'] = 100;
+        $data2['amount'] = 400;
         $data2['number'] = 1;
-        $data2['total'] = 100;
+        $data2['total'] = 400;
         $this->db->insert('opd_charges',$data2);
         if($this->db->insert('opd_entries',$data)){
             return true;

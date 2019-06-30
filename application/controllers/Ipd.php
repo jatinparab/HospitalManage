@@ -20,9 +20,9 @@ class Ipd extends CI_Controller {
 
         public function formSubmit()
         {   
-            $this->form_validation->set_rules('contact_number', 'Contact Number ', 'required|regex_match[/(7|8|9)\d{9}/]'); 
+            $this->form_validation->set_rules('contact_number', 'Contact Number ', 'required|regex_match[/(7|8|9)\d{9}/]|max_length[10]|min_length[10]'); 
             if($this->form_validation->run()===FALSE){
-                $this->session->set_flashdata('Incorrect contact', 'Mobile number is Incorrect');
+                $this->session->set_flashdata('Incorrectcontact', 'Mobile number is Incorrect');
                 redirect('/ipd_form');
             }           
             else{
@@ -221,6 +221,15 @@ class Ipd extends CI_Controller {
             $this->load->view('pages/bill_ipd', $data);
             $this->load->view('templates/footer', $data);
         }
+        public function editing($ipd_number){
+            $data['patient_data']=$this->ipd_management->get_ipd_details_from_id($ipd_number);
+            $ward_name = $data['patient_data']['ward'];
+            $this->ipd_management->add_daily($ipd_number,$ward_name);
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/edit_bill_ipd', $data);
+            $this->load->view('templates/footer', $data);
+
+        }
         public function deposit($ipd_number){
             $data['patient_data'] = $this->ipd_management->get_ipd_details_from_id($ipd_number);
            // $this->ipd_management->add_daily($ipd_number);
@@ -228,6 +237,21 @@ class Ipd extends CI_Controller {
             $this->load->view('pages/deposit_form', $data);
             $this->load->view('templates/footer', $data);
         }
+        public function editbill(){
+            $id = $this->input->post('ipdnum');
+            $name=$this->input->post('entry_name');
+            $amount=$this->input->post('entry_amount');
+            $number=$this->input->post('number');
+            $ward=$this->input->post('ward');
+            $data2=array(
+                'name'=>$name,
+                'amount'=>$amount,
+                'number'=>$number,
+                'type'=>$ward
+            );
+            $this->ipd_management->editipd($data2,$id);
+            
+        } 
 }
 
 
