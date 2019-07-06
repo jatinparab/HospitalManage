@@ -33,6 +33,7 @@ class Ipd extends CI_Controller {
            // $date = str_replace('/', '-', $var);
             //echo $date;
             $data['date_of_addmission'] = date('Y-m-d', strtotime($date));
+            $data['date_of_shift'] = date('Y-m-d', strtotime($date));
             //print_r($data);
             if($this->ipd_management->ipdsubmit($data) == TRUE){
             redirect('/ipd_details');
@@ -75,8 +76,8 @@ class Ipd extends CI_Controller {
             date_default_timezone_set('Asia/Kolkata');
             if($meta['type'] == 'full'){
             if($data['patient_data']['date_of_addmission'] != date('Y-m-d')){
-                echo 'test';
-                echo date('Y-m-d');
+                //echo 'test';
+                //echo date('Y-m-d');
                 $this->ipd_management->add_daily($ipd_number,$ward_name);
             }
             if($this->ipd_management->shift($data) == TRUE){

@@ -53,7 +53,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                         <th>Age</th>
                                         <th>Sex</th>
                                         <th>Date of admission</th>
-                                        <th>Date of discharge</th>
+                                        <!-- <th>Date of discharge</th> -->
                                         <th>Prefered Doctor</th>
                                         <th>Ward</th>
                                         <th class="noExport">Manange</th>
@@ -67,7 +67,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                 foreach($ipd as $entry){ ?>
                                     <tr>
                                     <?php foreach($entry as $field => $value){
-                                       if($field == 'done' || $field == 'current_applied'){
+                                       if($field == 'done' || $field == 'current_applied' || $field == 'date_of_shift' || $field == 'date_of_discharge' ){
                                            continue;
                                        }
                                         if($field != 'address'){
