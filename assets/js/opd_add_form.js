@@ -804,4 +804,18 @@ function percentage(num, per)
         url = window.location.href;
         $('body').load(url);
     }
+
+    var max_chars = 10;
+
+    $('.limit10').keydown( function(e){
+        if ($(this).val().length >= max_chars) { 
+            $(this).val($(this).val().substr(0, max_chars));
+        }
+    });
+    
+    $('.limit10').keyup( function(e){
+        if ($(this).val().length >= max_chars) { 
+            $(this).val($(this).val().substr(0, max_chars));
+        }
+    });
     
