@@ -132,7 +132,206 @@ if (isset($this->session->userdata['logged_in'])) {
                                                 </td>
                                                 
                                             </tr>
-                                            
+                                            <tr>
+                                                <td>
+                                                    <input name="Echo" type="checkbox" class="check" id="Echo">
+                                                </td>
+                                                <td>
+                                                    2D Echo
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" oninput="calculate(this)" id="Echo_amount" name="Echo_amount" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" oninput="ncalculate(this)" id="Echo_number"  name="Echo_number" value="1" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" id="Echo_total" name="Echo_total" readonly="readonly" disabled />
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input name="EEG" type="checkbox" class="check" id="EEG">
+                                                </td>
+                                                <td>
+                                                    EEG
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" oninput="calculate(this)" id="EEG_amount" name="EEG_amount" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" oninput="ncalculate(this)" id="EEG_number"  name="EEG_number" value="1" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" id="EEG_total" name="EEG_total" readonly="readonly" disabled />
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input name="Suture" type="checkbox" class="check" id="Suture">
+                                                </td>
+                                                <td>
+                                                    Suture
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" oninput="calculate(this)" id="Suture_amount" name="Suture_amount" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" oninput="ncalculate(this)" id="Suture_number"  name="Suture_number" value="1" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" id="Suture_total" name="Suture_total" readonly="readonly" disabled />
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input name="USG" type="checkbox" class="check" id="USG">
+                                                </td>
+                                                <td>
+                                                    USG
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" oninput="calculate(this)" id="USG_amount" name="USG_amount" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" oninput="ncalculate(this)" id="USG_number"  name="USG_number" value="1" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" id="USG_total" name="USG_total" readonly="readonly" disabled />
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input name="Dressing" type="checkbox" class="check" id="Dressing">
+                                                </td>
+                                                <td>
+                                                    Dressing
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" oninput="calculate(this)" id="Dressing_amount" name="Dressing_amount" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" oninput="ncalculate(this)" id="Dressing_number"  name="Dressing_number" value="1" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" id="Dressing_total" name="Dressing_total" readonly="readonly" disabled />
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input name="Stress-Test" type="checkbox" class="check" id="Stress-Test">
+                                                </td>
+                                                <td>
+                                                    Stress Test
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" oninput="calculate(this)" id="Stress-Test_amount" name="Stress-Test_amount" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" oninput="ncalculate(this)" id="Stress-Test_number"  name="Stress-Test_number" value="1" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" id="Stress-Test_total" name="Stress-Test_total" readonly="readonly" disabled />
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input name="Diylasis" type="checkbox" class="check" id="Diylasis">
+                                                </td>
+                                                <td>
+                                                    Diylasis
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" oninput="calculate(this)" id="Diylasis_amount" name="Diylasis_amount" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" oninput="ncalculate(this)" id="Diylasis_number"  name="Diylasis_number" value="1" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" id="Diylasis_total" name="Diylasis_total" readonly="readonly" disabled />
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input name="ABG" type="checkbox" class="check" id="ABG">
+                                                </td>
+                                                <td>
+                                                    ABG
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" oninput="calculate(this)" id="ABG_amount" name="ABG_amount" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" oninput="ncalculate(this)" id="ABG_number"  name="ABG_number" value="1" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" id="ABG_total" name="ABG_total" readonly="readonly" disabled />
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input name="Foliys-Catheter" type="checkbox" class="check" id="Foliys-Catheter">
+                                                </td>
+                                                <td>
+                                                    Foliys Catheter
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" oninput="calculate(this)" id="Foliys-Catheter_amount" name="Foliys-Catheter_amount" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" oninput="ncalculate(this)" id="Foliys-Catheter_number"  name="Foliys-Catheter_number" value="1" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" id="Foliys-Catheter_total" name="Foliys-Catheter_total" readonly="readonly" disabled />
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input name="Nebulization" type="checkbox" class="check" id="Nebulization">
+                                                </td>
+                                                <td>
+                                                    Nebulization
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" oninput="calculate(this)" id="Nebulization_amount" name="Nebulization_amount" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" oninput="ncalculate(this)" id="Nebulization_number"  name="Nebulization_number" value="1" disabled />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" id="Nebulization_total" name="Nebulization_total" readonly="readonly" disabled />
+                                                </td>
+                                                
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>                                    
