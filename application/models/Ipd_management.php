@@ -159,7 +159,7 @@ Class Ipd_Management extends CI_Model{
              if($ward_name=='General'){
                 $data['amount'] = 700/2;
                 }
-                elseif($ward_name=='ICU'){
+                elseif($ward_name=='ICU' || $ward_name=='SICU'){
                    $data['amount'] = 2600/2;
                 }
                 elseif($ward_name=='Special'){
@@ -167,7 +167,7 @@ Class Ipd_Management extends CI_Model{
                 }
                 else
                 {
-                   $data['amount'] = 200/2;
+                   $data['amount'] = 2600/2;
                 }
              $data['number'] = $number;
              $data['total'] = $data['amount']*$number;
@@ -208,7 +208,7 @@ Class Ipd_Management extends CI_Model{
         if($ward_name=='General'){
             $data['amount'] = 700/2;
             }
-            elseif($ward_name=='ICU'){
+            elseif($ward_name=='ICU' || $ward_name=='SICU'){
                $data['amount'] = 2600/2;
             }
             elseif($ward_name=='Special'){
@@ -216,7 +216,7 @@ Class Ipd_Management extends CI_Model{
             }
             else
             {
-               $data['amount'] = 200/2;
+               $data['amount'] = 2600/2;
             }
         $data['number'] = $number;
         $data['total'] = $data['amount']*$data['number'];
@@ -276,7 +276,7 @@ Class Ipd_Management extends CI_Model{
              if($ward_name=='General'){
              $data['amount'] = 700;
              }
-             elseif($ward_name=='ICU'){
+             elseif($ward_name=='ICU' || $ward_name=='SICU'){
                 $data['amount'] = 2600;
              }
              elseif($ward_name=='Special'){
@@ -284,7 +284,7 @@ Class Ipd_Management extends CI_Model{
              }
              else
              {
-                $data['amount'] = 200;
+                $data['amount'] = 2600;
              }
              $data['number'] = $number;
              $data['total'] = $data['amount']*$data['number'];
@@ -311,7 +311,7 @@ Class Ipd_Management extends CI_Model{
                     if($ward_name=='General'){
                         $data['amount'] = 900;
                         }
-                        elseif($ward_name=='ICU'){
+                        elseif($ward_name=='ICU' || $ward_name=='SICU'){
                            $data['amount'] = 2000;
                         }
                         elseif($ward_name=='Special'){
@@ -319,7 +319,7 @@ Class Ipd_Management extends CI_Model{
                         }
                         else
                         {
-                           $data['amount'] = 200;
+                           $data['amount'] = 2000;
                         }
                     $data['number'] = $number;
                     $data['total'] = $data['amount']*$data['number'];
@@ -332,7 +332,7 @@ Class Ipd_Management extends CI_Model{
                     if($ward_name=='General'){
                         $data['amount'] = 400;
                     }
-                    elseif($ward_name=='ICU'){
+                    elseif($ward_name=='ICU' || $ward_name=='SICU'){
                        $data['amount'] = 800;
                     }
                     elseif($ward_name=='Special'){
@@ -340,7 +340,7 @@ Class Ipd_Management extends CI_Model{
                     }
                     else
                     {
-                       $data['amount'] = 200;
+                       $data['amount'] = 800;
                     }
                     $data['number'] = $number;
                     $data['total'] = $data['amount']*$data['number'];
@@ -348,7 +348,7 @@ Class Ipd_Management extends CI_Model{
                      $this->db->where('name','Nursing Charges');
                     $this->db->update('ipd_charges',$data);
                     /////////////
-                    if($ward_name=='ICU'){
+                    if($ward_name=='ICU' || $ward_name=='SICU'){
                         $data['ipd_number']=$ipd_number;
                     $data['name'] = 'Monitor Charges';                   
                     $data['amount'] = 400;                   
@@ -396,7 +396,7 @@ Class Ipd_Management extends CI_Model{
         if($ward_name=='General'){
             $data['amount'] = 700;
             }
-            elseif($ward_name=='ICU'){
+            elseif($ward_name=='ICU' || $ward_name=='SICU'){
                $data['amount'] = 2600;
             }
             elseif($ward_name=='Special'){
@@ -424,7 +424,7 @@ Class Ipd_Management extends CI_Model{
                 if($ward_name=='General'){
                     $data['amount'] = 900;
                     }
-                    elseif($ward_name=='ICU'){
+                    elseif($ward_name=='ICU' || $ward_name=='SICU'){
                        $data['amount'] = 2000;
                     }
                     elseif($ward_name=='Special'){
@@ -432,7 +432,7 @@ Class Ipd_Management extends CI_Model{
                     }
                     else
                     {
-                       $data['amount'] = 200;
+                       $data['amount'] = 2000;
                     }
                 $data['number'] = 1;
                 $data['total'] = $data['amount']*$data['number'];
@@ -442,7 +442,7 @@ Class Ipd_Management extends CI_Model{
                 if($ward_name=='General'){
                     $data['amount'] = 400;
                     }
-                    elseif($ward_name=='ICU'){
+                    elseif($ward_name=='ICU' || $ward_name=='SICU'){
                        $data['amount'] = 800;
                     }
                     elseif($ward_name=='Special'){
@@ -450,12 +450,12 @@ Class Ipd_Management extends CI_Model{
                     }
                     else
                     {
-                       $data['amount'] = 200;
+                       $data['amount'] = 800;
                     }
                 $data['number'] = 1;
                 $data['total'] = $data['amount']*$data['number'];
                 $this->db->insert('ipd_charges',$data);
-                if($ward_name=='ICU'){
+                if($ward_name=='ICU' || $ward_name=='SICU'){
                 $data['ipd_number']=$ipd_number;
                 $data['name'] = 'Monitor Charges';               
                 $data['amount'] = 600;                   
