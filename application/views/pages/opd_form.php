@@ -2,7 +2,7 @@
 <?php
 $contact_number=array(
     'name'=>'contact_number',
-    'class' => 'form-control onlynumber',
+    'class' => 'form-control onlynumber limit10',
     'type' => 'text',
     'id' => 'contact_number',
     'placeholder' => 'Mobile Number',
