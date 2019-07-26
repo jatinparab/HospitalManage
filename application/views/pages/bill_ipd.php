@@ -5,7 +5,10 @@
                   
                 
                 $entries = $this->ipd_management->get_bill_entries($patient_data['ipd_number']);
-                $visiting = $this->ipd_management->get_visiting_entries($patient_data['ipd_number']);                $general = 0;
+                $visiting = $this->ipd_management->get_visiting_entries($patient_data['ipd_number']);  
+                $ot_charges = $this->ipd_management->get_ot_entries($patient_data['ipd_number']);
+                $is_ot_paid = $this->ipd_management->is_ot_paid($patient_data['ipd_number']); 
+                $general = 0;
                 $icu = 0;
                 $sicu = 0;
                 $special = 0;
@@ -97,7 +100,7 @@ body{
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
     						
                   <?php 
-                  $i=1; $sum=0;$visit_charge=0;
+                  $i=1; $sum=0;$visit_charge=0;$ot_charge=0;
                   foreach($visiting as $visit){ ?>
                     <tr>
                                  <td><?=$i?></td>
@@ -179,10 +182,42 @@ body{
                   <?php $i++; }
                 
                 
-                }?>
-                  <?php if(isset($visit_charge)){
-                    $subtotal=$sum+$visit_charge;}
-                    else {$subtotal=$sum;} ?>
+                }
+
+                if(count($ot_charges)>0){
+?>
+
+                  <tr><td colspan="5">Operation Theater Charges</td></tr>
+<?php
+                foreach($ot_charges as $charge){ ?>
+                  <tr>
+                               <td><?=$i?></td>
+                       <td><?=$charge['name']?> </td>
+                   <td class="text-center">Rs. <?=$charge['total']?></td>
+                   <td class="text-center">1</td>
+                   <?php if($is_ot_paid){ ?>
+                   <td class="text-right">Rs. <?=$charge['total']?></td>
+                   <?php }else{ ?>
+                    <td class="text-right">Rs. <?=$charge['total']?></td>
+                   <?php } ?>
+                 </tr>
+                 <?php $ot_charge+=$charge['total'];?>
+               <?php $i++; }
+                } $subtotal = $sum;
+                
+                if(isset($visit_charge)){
+                  $subtotal+=$ot_charge;
+                }
+                
+                ?>
+                  <?php 
+                  
+                  if(isset($visit_charge)){
+                    $subtotal+=$visit_charge;
+                  }
+                  else {$subtotal=$sum;} ?>
+
+
     							<tr>
     								<td class="thick-line"></td>
     								<td class="thick-line"></td>

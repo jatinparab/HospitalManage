@@ -75,28 +75,28 @@ if (isset($this->session->userdata['logged_in'])) {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">Patient Name <span style="color:red;font-size:15px;">*</span></label>
+                                    <label class="col-md-3 control-label">Patient Name <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
                                         <input type="text" id="patient_name" oninput="this.value = this.value.toUpperCase()"  name="patient_name" class="form-control onlytext" placeholder="Patient Name" />
                                     </div>
-                                    <label class="col-md-1 control-label" >Mobile No. <span style="color:red;font-size:15px;">*</span></label>
+                                    <label class="col-md-2 control-label" >Mobile No. <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
                                     <?=form_input($contact_number);?>
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">Address</label>
-                                    <div class="col-md-5">
+                                    <label class="col-md-3 control-label">Address</label>
+                                    <div class="col-md-6">
                                         <textarea style="height:40px;" id="address" class="form-control" name="address" placeholder="Textarea" rows="5"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">Age <span style="color:red;font-size:15px;">*</span></label>
+                                    <label class="col-md-3 control-label">Age <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-1">
                                         <input type="text" style="width:130px;" maxlength="3" id="age"  class="form-control onlynumber" name="age" placeholder="Default input" />
                                     </div>
-                                    <label  class="col-md-2 control-label">Sex <span style="color:red;font-size:15px;">*</span></label>
+                                    <label  class="col-md-3 control-label">Sex <span style="color:red;font-size:15px;">*</span></label>
                                     <div class="col-md-2">
                                         <select id="sex" name="sex" class="form-control">
                                             <option value='-1'>Select</option>
@@ -108,15 +108,15 @@ if (isset($this->session->userdata['logged_in'])) {
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">Diagnosis </label>
-                                    <div  class="col-md-5">
+                                    <label class="col-md-3 control-label">Diagnosis </label>
+                                    <div  class="col-md-6">
                                         <input id="diagnosis" name="diagnosis" type="text" class="form-control" placeholder="Default input" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">Checked By <span style="color:red;font-size:15px;">*</span></label>
-                                    <div class="col-md-2">
-                                        <input id="checked_by"  oninput="this.value = this.value.toUpperCase()"  value="Dr. " name="checked_by" type="text" class="form-control onlytext focusend" placeholder="Dr." />
+                                    <label class="col-md-3 control-label">Checked By <span style="color:red;font-size:15px;">*</span></label>
+                                    <div class="col-md-3">
+                                        <input id="checked_by"  oninput="this.value = this.value.toUpperCase()" style="font-weight:800"  value="Dr.Santosh Sudam Jadhav " name="checked_by" type="text" class="form-control onlytext focusend" placeholder="Dr." />
                                     </div>
                                     <label class="col-md-1 control-label">Remarks</label>
                                     <div class="col-md-2">

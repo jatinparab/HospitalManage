@@ -190,7 +190,6 @@ Class Ipd_Management extends CI_Model{
         $hm = $details['date_of_shift'];
         $now = time();
         $datediff = $now - strtotime($hm);
-     //   return $now;
         $number = round($datediff / (60 * 60 * 24));
         
         if($number == 0 ) {
@@ -393,7 +392,7 @@ Class Ipd_Management extends CI_Model{
                 $data['ipd_number']=$ipd_number;
                 $data['name'] = 'IPD charges -' .$ward_name;
                 $data['amount'] = 500;
-                $data['number'] = 1;
+             //   $data['number'] = 1;
                 $data['total'] = $data['amount']*$data['number'];
                 $this->db->insert('ipd_charges',$data);
                 $data['ipd_number']=$ipd_number;
@@ -411,7 +410,7 @@ Class Ipd_Management extends CI_Model{
                     {
                        $data['amount'] = 2000;
                     }
-                $data['number'] = 1;
+         //       $data['number'] = 1;
                 $data['total'] = $data['amount']*$data['number'];
                 $this->db->insert('ipd_charges',$data);
                 $data['ipd_number']=$ipd_number;
@@ -429,20 +428,20 @@ Class Ipd_Management extends CI_Model{
                     {
                        $data['amount'] = 800;
                     }
-                $data['number'] = 1;
+             //   $data['number'] = 1;
                 $data['total'] = $data['amount']*$data['number'];
                 $this->db->insert('ipd_charges',$data);
                 if($ward_name=='ICU' || $ward_name=='SICU'){
                 $data['ipd_number']=$ipd_number;
                 $data['name'] = 'Monitor Charges -'.$ward_name;;               
                 $data['amount'] = 600;                   
-                $data['number'] = 1;
+            //    $data['number'] = 1;
                 $data['total'] = $data['amount']*$data['number'];
                 $this->db->insert('ipd_charges',$data);
                 $data['ipd_number']=$ipd_number;
                 $data['name'] = 'Pulse Oximeter -'.$ward_name;;               
                 $data['amount'] = 400;                   
-                $data['number'] = 1;
+        //        $data['number'] = 1;
                 $data['total'] = $data['amount']*$data['number'];
                 $this->db->insert('ipd_charges',$data);
                 }
@@ -515,6 +514,21 @@ Class Ipd_Management extends CI_Model{
         $this->db->order_by('type',"ASC");
         return $this->db->get('ipd_charges')->result_array();
 
+    }
+
+    public function is_ot_paid($ipd_number){
+        $this->db->where('ipd_number',$ipd_number);
+        $y= $this->db->get('ot_done')->result_array();
+        if(count($y)>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function get_ot_entries($ipd_number){
+        $this->db->where('ipd_number',$ipd_number);
+        return $this->db->get('ot_charges')->result_array();
     }
 
     public function get_visiting_entries($ipd_number){

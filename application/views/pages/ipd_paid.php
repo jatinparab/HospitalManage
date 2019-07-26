@@ -78,8 +78,8 @@ if (isset($this->session->userdata['logged_in'])) {
                                 
                                 } ?>
                                     <td>Rs. <?=$total['amount']?></td>
-                                    <td><a href="<?=base_url()?>ipd/billing/<?=$entry['ipd_number']?>" class="btn btn-info" style="font-size:6px;color:#fff000000 !important;" ><i class="fa fa-angle-up"></i></a></td>
-                                    <td><a href="<?=base_url()?>ipd/editing/<?=$entry['ipd_number']?>" class="btn btn-info" style="font-size:6px;color:#fff000000 !important;" ><i class="fa fa-angle-up"></i></a></td>
+                                    <td><a href="<?=base_url()?>ipd/billing/<?=$entry['ipd_number']?>" class="btn btn-info"  >View Bill</i></a></td>
+                                    <td><a href="<?=base_url()?>ipd/editing/<?=$entry['ipd_number']?>" class="btn btn-info" >Edit Bill</i></a></td>
                                     </tr>
                                 <?php }?>
 

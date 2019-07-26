@@ -125,10 +125,10 @@ if (isset($this->session->userdata['logged_in'])) {
                                 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Prefered Doctor <span style="color:red;font-size:15px;">*</span></label>
-                                    <div class="col-md-2">
-                                        <input type="text" id="prefered_doctor" value="Dr.Santosh Sudam Jadhav " name="prefered_doctor" class="form-control onlytext" placeholder="Dr." />
+                                    <div class="col-md-3">
+                                        <input type="text" id="prefered_doctor" value="Dr.Santosh Sudam Jadhav " style="font-weight:800" name="prefered_doctor" class="form-control onlytext" placeholder="Dr." />
                                     </div>
-                                    <label class="col-md-3 control-label">Ward <span style="color:red;font-size:15px;">*</span></label>
+                                    <label class="col-md-2 control-label">Ward <span style="color:red;font-size:15px;">*</span></label>
 									
                                     <div class="col-md-2">
                                         <select name="ward" id="ward" class="form-control">

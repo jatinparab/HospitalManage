@@ -75,7 +75,7 @@ if (isset($this->session->userdata['logged_in'])) {
                                 
                                 } ?>
                                     <td>Rs. <?=$total['amount']?></td>
-                                    <td><a href="<?=base_url()?>opd/billing/<?=$entry['id']?>" class="btn btn-info" style="font-size:6px;color:#fff000000 !important;" ><i class="fa fa-angle-up"></i></a></td>
+                                    <td><a href="<?=base_url()?>opd/billing/<?=$entry['id']?>" class="btn btn-info"  >View Bill</a></td>
                                     </tr>
                                 <?php }?>
 
