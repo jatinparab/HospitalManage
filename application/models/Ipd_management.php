@@ -191,9 +191,9 @@ Class Ipd_Management extends CI_Model{
         $now = time();
         $datediff = $now - strtotime($hm);
         $number = round($datediff / (60 * 60 * 24));
-        
-        if($number == 0 ) {
-            $number = 1;
+        $number = $number - 1;
+        if($number == -1 ) {
+            $number = 0;
         }
         $data['ipd_number']=$ipd_number;
         $data['name'] = 'bed charges - '.$ward_name;
@@ -254,6 +254,7 @@ Class Ipd_Management extends CI_Model{
             $datediff = $now - strtotime($hm);
      //   return $now;
              $number = round($datediff / (60 * 60 * 24));
+            $number = $number - 1;
              if($number == 0 ) {
                  $number = 1;
              }
