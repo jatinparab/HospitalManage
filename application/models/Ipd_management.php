@@ -163,7 +163,7 @@ Class Ipd_Management extends CI_Model{
             $number = 1;
         }
         $data['ipd_number']=$ipd_number;
-        $data['name'] = 'bed charges - half day'.date('d-m-Y');
+        $data['name'] = 'bed charges - half day - '.date('d-m-Y');
         if($ward_name=='General'){
             $data['amount'] = 700;
             }
@@ -180,15 +180,9 @@ Class Ipd_Management extends CI_Model{
             $data['number'] = -1;
             $data['total'] = $data['amount']*(1/2);
         if($this->db->insert('ipd_charges',$data)){
-           
+  
                 $data['ipd_number']=$ipd_number;
-                $data['name'] = 'IPD charges - half day'.date('d-m-Y');
-                $data['amount'] = 500;
-                $data['number'] = -1;
-                $data['total'] = $data['amount']*(1/2);
-                $this->db->insert('ipd_charges',$data);
-                $data['ipd_number']=$ipd_number;
-                $data['name'] = 'Doctor Charges - half day'.date('d-m-Y');
+                $data['name'] = 'Doctor Charges - half day - '.date('d-m-Y');
                 if($ward_name=='General'){
                     $data['amount'] = 900;
                     }
@@ -206,7 +200,7 @@ Class Ipd_Management extends CI_Model{
                     $data['total'] = $data['amount']*(1/2);
                 $this->db->insert('ipd_charges',$data);
                 $data['ipd_number']=$ipd_number;
-                $data['name'] = 'Nursing Charges - half day'.date('d-m-Y');
+                $data['name'] = 'Nursing Charges - half day - '.date('d-m-Y');
                 if($ward_name=='General'){
                     $data['amount'] = 400;
                     }
@@ -225,13 +219,13 @@ Class Ipd_Management extends CI_Model{
                 $this->db->insert('ipd_charges',$data);
                 if($ward_name=='ICU' || $ward_name=='SICU'){
                 $data['ipd_number']=$ipd_number;
-                $data['name'] = 'Monitor Charges - half day'.date('d-m-Y');               
+                $data['name'] = 'Monitor Charges - half day - '.date('d-m-Y');               
                 $data['amount'] = 600;                   
                 $data['number'] = -1;
                 $data['total'] = $data['amount']*(1/2);
                 $this->db->insert('ipd_charges',$data);
                 $data['ipd_number']=$ipd_number;
-                $data['name'] = 'Pulse Oximeter - half day'.date('d-m-Y');               
+                $data['name'] = 'Pulse Oximeter - half day - '.date('d-m-Y');               
                 $data['amount'] = 400;                   
                 $data['number'] = -1;
                 $data['total'] = $data['amount']*(1/2);
@@ -300,15 +294,7 @@ Class Ipd_Management extends CI_Model{
              $this->db->where('ipd_number',$ipd_number);
              $this->db->where('name','bed charges - '.$ward_name);
              if($this->db->update('ipd_charges',$data)){
-                
-                    $data['ipd_number']=$ipd_number;
-                    $data['name'] = 'IPD charges -'.$ward_name;;
-                    $data['amount'] = 500;
-                    $data['number'] = $number;
-                    $data['total'] = $data['amount']*$data['number'];
-                    $this->db->where('ipd_number',$ipd_number);
-                     $this->db->where('name','IPD charges -'.$ward_name);
-                    $this->db->update('ipd_charges',$data);
+
                     ////////////
                     $data['ipd_number']=$ipd_number;
                     $data['name'] = 'Doctor Charges -'.$ward_name;;
@@ -412,12 +398,6 @@ Class Ipd_Management extends CI_Model{
         $data['total'] = $data['amount']*$data['number'];
         if($this->db->insert('ipd_charges',$data)){
            
-                $data['ipd_number']=$ipd_number;
-                $data['name'] = 'IPD charges -' .$ward_name;
-                $data['amount'] = 500;
-             //   $data['number'] = 1;
-                $data['total'] = $data['amount']*$data['number'];
-                $this->db->insert('ipd_charges',$data);
                 $data['ipd_number']=$ipd_number;
                 $data['name'] = 'Doctor Charges -'.$ward_name;;
                 if($ward_name=='General'){
