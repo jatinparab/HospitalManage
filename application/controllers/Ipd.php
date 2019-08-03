@@ -75,10 +75,10 @@ class Ipd extends CI_Controller {
             $ward_name = $data['patient_data']['ward'];
             date_default_timezone_set('Asia/Kolkata');
             if($meta['type'] == 'full'){
-            if($data['patient_data']['date_of_addmission'] != date('Y-m-d')){
+            if($data['patient_data']['date_of_addmission'] != date('dailyY-m-d')){
                 //echo 'test';
                 //echo date('Y-m-d');
-                $this->ipd_management->add_daily($ipd_number,$ward_name);
+                $this->ipd_management->add_daily($ipd_number,$ward_name,0);
             }
             if($this->ipd_management->shift($data) == TRUE){
                // echo date('Y-m-d');
@@ -89,7 +89,7 @@ class Ipd extends CI_Controller {
         }
         if($meta['type'] == 'any' && $meta['any'] == 'current'){
             
-            $this->ipd_management->add_daily($ipd_number,$ward_name);
+            $this->ipd_management->add_daily($ipd_number,$ward_name,0);
             $this->ipd_management->shift_current($data);
             echo 'success';
         }
@@ -104,6 +104,7 @@ class Ipd extends CI_Controller {
             $ward = $data['ward'];
          //  echo $ward;
            //echo $ward_name;
+           $this->ipd_management->add_daily($ipd_number,$ward_name,-1);
             $this->ipd_management->add_half_daily($ipd_number,$ward);
             $this->ipd_management->add_half_daily($ipd_number,$ward_name);
             if($this->ipd_management->shift_current($data) == TRUE){
@@ -217,7 +218,7 @@ class Ipd extends CI_Controller {
         public function billing($ipd_number){
             $data['patient_data'] = $this->ipd_management->get_ipd_details_from_id($ipd_number);
             $ward_name = $data['patient_data']['ward'];
-            $this->ipd_management->add_daily($ipd_number,$ward_name);
+            $this->ipd_management->add_daily($ipd_number,$ward_name,0);
             $this->load->view('templates/header', $data);
             $this->load->view('pages/bill_ipd', $data);
             $this->load->view('templates/footer', $data);
@@ -225,7 +226,7 @@ class Ipd extends CI_Controller {
         public function editing($ipd_number){
             $data['patient_data']=$this->ipd_management->get_ipd_details_from_id($ipd_number);
             $ward_name = $data['patient_data']['ward'];
-            $this->ipd_management->add_daily($ipd_number,$ward_name);
+            $this->ipd_management->add_daily($ipd_number,$ward_name,0);
             $this->load->view('templates/header', $data);
             $this->load->view('pages/edit_bill_ipd', $data);
             $this->load->view('templates/footer', $data);

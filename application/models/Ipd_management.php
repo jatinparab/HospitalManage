@@ -126,7 +126,9 @@ Class Ipd_Management extends CI_Model{
         return $this->db->get('ipd_done')->row_array();
     }
 
+
     public function add_half_daily($ipd_number,$ward_name){
+        
         if($ward_name == 'General'){
             $data['type'] = 0;
         }else if($ward_name == 'ICU'){
@@ -138,94 +140,114 @@ Class Ipd_Management extends CI_Model{
         }else{
             $data['type'] = 4;
         }
-
+        $y =  $this->db->query("SELECT * FROM ipd_entries WHERE ipd_number='$ipd_number'")->row_array();
+        if($y['current_applied']!= 1){
+            
         $this->db->where('ipd_number',$ipd_number);
         $this->db->limit(1);
         $details = $this->db->get('ipd_entries')->result_array()[0];
         $this->db->select('*');
         $this->db->where('name','bed charges - '.$ward_name);
         $this->db->where('ipd_number',$ipd_number);
-       $x= $this->db->get('ipd_charges')->row_array();
-        if(count($x)>0){
-            $hm = $details['date_of_shift'];
-             $now = time();
-            $datediff = $now - strtotime($hm);
-     //   return $now;
-             $number = round($datediff / (60 * 60 * 24));
-             if($number == 0 ) {
-                 $number = 1;
-             }
-             $data['ipd_number']=$ipd_number;
-             $data['name'] = 'bed charges - '.$ward_name;
-             if($ward_name=='General'){
-                $data['amount'] = 700/2;
-                }
-                else if($ward_name=='ICU' || $ward_name=='SICU'){
-                   $data['amount'] = 2600/2;
-                }
-                else if($ward_name=='Special'){
-                   $data['amount'] = 1600/2;
-                }
-                else
-                {
-                   $data['amount'] = 2600/2;
-                }
-             $data['number'] = $number;
-             $data['total'] = $data['amount']*$number;
-             $data['number'] = -1;
-             $this->db->where('ipd_number',$ipd_number);
-             $this->db->where('name','bed charges - '.$ward_name);
-             if($this->db->update('ipd_charges',$data)){
-                   
-                     return true;
-                
-             }else{
-                 return false;
-             }
-        }else{
-            
+       $x= $this->db->get('ipd_charges')->row_array();    
        $y =  $this->db->query("SELECT * FROM ipd_entries WHERE ipd_number='$ipd_number'")->row_array();
             if($y['current_applied']!= 1){
 
         $hm = $details['date_of_shift'];
         $now = time();
         $datediff = $now - strtotime($hm);
+     //   return $now;
         $number = round($datediff / (60 * 60 * 24));
-        $number = $number - 1;
-        if($number == -1 ) {
-            $number = 0;
+        
+        if($number == 0 ) {
+            $number = 1;
         }
         $data['ipd_number']=$ipd_number;
-        $data['name'] = 'bed charges - '.$ward_name;
+        $data['name'] = 'bed charges - half day'.date('d-m-Y');
         if($ward_name=='General'){
-            $data['amount'] = 700/2;
+            $data['amount'] = 700;
             }
-            elseif($ward_name=='ICU' || $ward_name=='SICU'){
-               $data['amount'] = 2600/2;
+            else if($ward_name=='ICU' || $ward_name=='SICU'){
+               $data['amount'] = 2600;
             }
-            elseif($ward_name=='Special'){
-               $data['amount'] = 1600/2;
+            else if($ward_name=='Special'){
+               $data['amount'] = 1600;
             }
             else
             {
-               $data['amount'] = 2600/2;
+               $data['amount'] = 200;
             }
-        $data['number'] = $number;
-        $data['total'] = $data['amount']*$data['number'];
-        $data['number'] = -1;
-
+            $data['number'] = -1;
+            $data['total'] = $data['amount']*(1/2);
         if($this->db->insert('ipd_charges',$data)){
            
-               
+                $data['ipd_number']=$ipd_number;
+                $data['name'] = 'IPD charges - half day'.date('d-m-Y');
+                $data['amount'] = 500;
+                $data['number'] = -1;
+                $data['total'] = $data['amount']*(1/2);
+                $this->db->insert('ipd_charges',$data);
+                $data['ipd_number']=$ipd_number;
+                $data['name'] = 'Doctor Charges - half day'.date('d-m-Y');
+                if($ward_name=='General'){
+                    $data['amount'] = 900;
+                    }
+                    elseif($ward_name=='ICU' || $ward_name=='SICU'){
+                       $data['amount'] = 2000;
+                    }
+                    elseif($ward_name=='Special'){
+                       $data['amount'] = 1400;
+                    }
+                    else
+                    {
+                       $data['amount'] = 2000;
+                    }
+                    $data['number'] = -1;
+                    $data['total'] = $data['amount']*(1/2);
+                $this->db->insert('ipd_charges',$data);
+                $data['ipd_number']=$ipd_number;
+                $data['name'] = 'Nursing Charges - half day'.date('d-m-Y');
+                if($ward_name=='General'){
+                    $data['amount'] = 400;
+                    }
+                    elseif($ward_name=='ICU' || $ward_name=='SICU'){
+                       $data['amount'] = 800;
+                    }
+                    elseif($ward_name=='Special'){
+                       $data['amount'] = 500;
+                    }
+                    else
+                    {
+                       $data['amount'] = 800;
+                    }
+                    $data['number'] = -1;
+                    $data['total'] = $data['amount']*(1/2);
+                $this->db->insert('ipd_charges',$data);
+                if($ward_name=='ICU' || $ward_name=='SICU'){
+                $data['ipd_number']=$ipd_number;
+                $data['name'] = 'Monitor Charges - half day'.date('d-m-Y');               
+                $data['amount'] = 600;                   
+                $data['number'] = -1;
+                $data['total'] = $data['amount']*(1/2);
+                $this->db->insert('ipd_charges',$data);
+                $data['ipd_number']=$ipd_number;
+                $data['name'] = 'Pulse Oximeter - half day'.date('d-m-Y');               
+                $data['amount'] = 400;                   
+                $data['number'] = -1;
+                $data['total'] = $data['amount']*(1/2);
+                $this->db->insert('ipd_charges',$data);
+                }
                 return true;
-            }
-        else{
+                                                  
+        }else{
             return $this->db->error();
         }
     }
 }
     }
-    public function add_daily($ipd_number,$ward_name){
+    
+
+    public function add_daily($ipd_number,$ward_name,$buffer){
         
         if($ward_name == 'General'){
             $data['type'] = 0;
@@ -254,7 +276,7 @@ Class Ipd_Management extends CI_Model{
             $datediff = $now - strtotime($hm);
      //   return $now;
              $number = round($datediff / (60 * 60 * 24));
-            $number = $number - 1;
+             $number += $buffer;
              if($number == 0 ) {
                  $number = 1;
              }
@@ -367,7 +389,7 @@ Class Ipd_Management extends CI_Model{
         $datediff = $now - strtotime($hm);
      //   return $now;
         $number = round($datediff / (60 * 60 * 24));
-        
+        $number += $buffer;
         if($number == 0 ) {
             $number = 1;
         }
